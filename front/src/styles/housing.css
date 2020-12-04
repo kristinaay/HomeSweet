@@ -1,0 +1,159 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+}
+
+.navbar {
+  font-family: "Montserrat", sans-serif;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  background-color: white;
+}
+
+.nav-links {
+  justify-self: flex-end;
+  margin: 10px;
+  color: #945e00;
+}
+
+.nav-links:hover {
+  color: #ba7806;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.logo-container {
+  margin-right: auto;
+}
+
+.logo-header {
+  font-size: 20px;
+  text-decoration: none;
+  color: #0f6305;
+  margin: 10px;
+}
+
+.logo-header:hover {
+  color: #38a12b;
+}
+footer {
+  font-size: 15px;
+  color: black;
+  position: absolute;
+  bottom: 0px;
+  text-align: right;
+  padding-right: 10px;
+  width: 100%;
+  background-color: white;
+  height: 2rem;
+}
+
+.other-footer {
+  font-size: 15px;
+  color: black;
+  position: relative;
+  bottom: 0px;
+  text-align: right;
+  padding-right: 10px;
+  width: 100%;
+  background-color: white;
+  height: 2rem;
+}
+
+.container {
+  display: flex;
+}
+
+.list-group-item {
+  width: 30%;
+  float: right;
+}
+
+.page-link {
+  background-color: white;
+  display: inline-block;
+  cursor: pointer;
+  color: black;
+  font-size: 10px;
+  text-decoration: none;
+  width: 40px;
+  height: 30px;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  margin-bottom: 5px;
+}
+.page-link:hover {
+  background-color: #d99100;
+  border: 1px;
+  border-color: white;
+  border-style: solid;
+  color: white;
+}
+
+.page-link:focus {
+  background-color: #d99100;
+  border: 0;
+  outline: none;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+
+.pag {
+  width: 100%;
+  float: center;
+  align-content: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.pagination {
+  text-align: center;
+  float: center;
+  align-content: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.container-card {
+  justify-content: center;
+  align-items: center;
+  margin-left: 0;
+  margin-right: 0;
+  margin: 25px;
+  height: 300px;
+  overflow: auto;
+}
+
+.rendered {
+  padding-top: 40px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  float: center;
+}
+
+.card-header-1 {
+  align-items: center;
+  margin-left: 0;
+  margin-right: 0;
+  font-size: 20px;
+}
+
+.card-body {
+  align-items: center;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.inner {
+  position: relative;
+}
