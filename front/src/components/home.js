@@ -21,9 +21,7 @@ function Home() {
       </div>
       <section id="section1">
         <h2 className="discover">Rediscover Home</h2>
-        <div className="subtitle">
-          Find your perfect San Francisco housing with HomeSweet.
-        </div>
+        <div className="subtitle">Find your perfect San Francisco housing.</div>
         <div class="search-container">
           <div class="search">
             <input

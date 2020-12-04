@@ -10,6 +10,33 @@ function Housing(props) {
   const loading = props.loading;
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(12);
+  const [hovered, setHovered] = useState([]);
+
+  useEffect(() => {
+    const getHovered = () => {
+      try {
+        const arr = [];
+        for (let i = 0; i < 3010; i++) {
+          arr.push(false);
+        }
+        setHovered(arr);
+        console.log(arr);
+      } catch (err) {
+        console.log("error");
+      }
+    };
+    getHovered();
+  }, []);
+
+  const changeHovered = (index, value) => {
+    let copyArr = [...hovered];
+    copyArr[index] = value;
+    setHovered(copyArr);
+  };
+
+  const getHov = (index) => {
+    return hovered[index];
+  };
 
   const indexLastPost = currentPage * postsPerPage;
   const indexFirstPost = indexLastPost - postsPerPage;
@@ -21,22 +48,42 @@ function Housing(props) {
     }
 
     return (
-      <div>
+      <div className="house-full">
         <Container>
           <Row>
-            {posts.map((p) => (
+            {posts.map((p, index) => (
               <Col md="4">
                 <div className="container-card">
-                  <h4 className="card-header-1">{p["result-title"]}</h4>
-                  <img
-                    src={`${p.images[0].replace("50x50c", "600x450")}`}
-                    alt="housing"
-                  />
-                  <div className="card-body">
-                    {p.postingbody
-                      .replace(/<[^>]*>?/gm, "")
-                      .replace("QR Code Link to This Post", "")}
-                  </div>
+                  {getHov(index) && (
+                    <div
+                      className="moreinfo"
+                      onMouseLeave={() => changeHovered(index, false)}
+                      onMouseOver={() => changeHovered(index, true)}
+                    >
+                      Click for more info!
+                    </div>
+                  )}
+                  {!getHov(index) && (
+                    <div className="whole-card">
+                      <h4 className="card-header-1">{p["result-title"]}</h4>
+                      <div
+                        className="card-body"
+                        id="card-body-1"
+                        onMouseLeave={() => changeHovered(index, false)}
+                        onMouseOver={() => changeHovered(index, true)}
+                      >
+                        <img
+                          src={`${p.images[0].replace("50x50c", "600x450")}`}
+                          alt="housing"
+                          className="housing-img"
+                        />
+
+                        {p.postingbody
+                          .replace(/<[^>]*>?/gm, "")
+                          .replace("QR Code Link to This Post", "")}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </Col>
             ))}
@@ -77,9 +124,6 @@ function Housing(props) {
     }
     pageNumbers.push(">>");
 
-    console.log(totalPosts);
-    console.log(pageNumbers);
-
     return (
       <nav className="pag">
         <ol className="pagination">
@@ -114,12 +158,12 @@ function Housing(props) {
           Sign Up
         </Link>
       </div>
-      <section id="section1">
-        <div className="inner">
-          <div className="rendered">{renderPosts(currPosts, loading)} </div>
-          {Pagination(postsPerPage, posts.length, paginate, currentPage)}
-        </div>
-      </section>
+
+      <div className="inner">
+        <div className="rendered">{renderPosts(currPosts, loading)} </div>
+        {Pagination(postsPerPage, posts.length, paginate, currentPage)}
+      </div>
+
       <footer className="other-footer">
         Image by @bradencollum on Unsplash.
       </footer>
