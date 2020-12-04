@@ -11,8 +11,9 @@ body {
 }
 
 .house-full {
-  background-color: rgba(255, 248, 231, 0.6);
+  background-color: rgba(255, 255, 255, 0.4);
   background-blend-mode: lighten;
+  padding: 10px;
 }
 
 .navbar {
@@ -101,12 +102,12 @@ footer {
   margin-bottom: 5px;
 }
 .page-link:hover {
-  background-color: #899bc3;
+  background-color: #8fa995;
   color: white;
 }
 
 .page-link:focus {
-  background-color: #899bc3;
+  background-color: #8fa995;
   border: 0;
   outline: none;
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
@@ -134,8 +135,8 @@ footer {
   align-items: center;
   margin-left: 0;
   margin-right: 0;
-  margin: 5px;
-  height: 450px;
+  margin: 10px;
+  height: 400px;
   overflow: auto;
   overflow-x: hidden;
 }
@@ -147,10 +148,10 @@ footer {
   margin-left: 0;
   margin-right: 0;
   margin: 5px;
-  height: 450px;
+  height: 400px;
   overflow: hidden;
-  background: rgb(137, 155, 195);
-  background: rgba(137, 155, 195, 0.85);
+  background: rgb(143, 169, 149);
+  background: rgba(143, 169, 149, 0.85);
   color: white;
   font-size: 25px;
   font-family: "Bebas Neue", cursive;

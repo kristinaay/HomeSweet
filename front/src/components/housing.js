@@ -48,7 +48,7 @@ function Housing(props) {
     }
 
     return (
-      <div className="house-full">
+      <div>
         <Container>
           <Row>
             {posts.map((p, index) => (
@@ -158,10 +158,11 @@ function Housing(props) {
           Sign Up
         </Link>
       </div>
-
-      <div className="inner">
-        <div className="rendered">{renderPosts(currPosts, loading)} </div>
-        {Pagination(postsPerPage, posts.length, paginate, currentPage)}
+      <div className="house-full">
+        <div className="inner">
+          <div className="rendered">{renderPosts(currPosts, loading)} </div>
+          {Pagination(postsPerPage, posts.length, paginate, currentPage)}
+        </div>
       </div>
 
       <footer className="other-footer">
