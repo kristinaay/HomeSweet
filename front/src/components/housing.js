@@ -6,7 +6,7 @@ import { Card, Button } from "react-bootstrap";
 import { Container, Row, Col } from "reactstrap";
 import { ButtonGroup, DropdownButton } from "react-bootstrap";
 
-function Housing() {
+function Housing(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(12);
   const [hovered, setHovered] = useState([]);
@@ -14,17 +14,44 @@ function Housing() {
   const [posts, setPosts] = useState([]);
   const [origPosts, setOrigPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searched, setSearch] = useState("");
+
+  let textInput = React.createRef();
+  let textInputProps = props.textInput;
+
+  const handleClick = () => {
+    const newSearch = textInput.current.value;
+    setLoading(true);
+    setPosts(
+      origPosts.filter(
+        (p) => p["result-hood"] && p["result-hood"].includes(newSearch)
+      )
+    );
+    setLoading(false);
+  };
 
   useEffect(() => {
     const getPosts = async () => {
       try {
-        setLoading(true);
-        const _posts = await fetch("/getposts").then((res) => res.json());
-        setPosts(_posts);
-        setOrigPosts(_posts);
-        console.log("done");
-        setLoading(false);
+        if (textInputProps !== null && textInputProps !== "") {
+          console.log(textInputProps);
+          setLoading(true);
+          const newSearch = props.textInput.current.value;
+          const _posts = await fetch("/getposts").then((res) => res.json());
+          setOrigPosts(_posts);
+          setPosts(
+            origPosts.filter(
+              (p) => p["result-hood"] && p["result-hood"].includes(newSearch)
+            )
+          );
+          setLoading(false);
+        } else {
+          setLoading(true);
+          const _posts = await fetch("/getposts").then((res) => res.json());
+          setPosts(_posts);
+          setOrigPosts(_posts);
+          console.log("done");
+          setLoading(false);
+        }
       } catch (err) {
         console.log("error");
       }
@@ -64,6 +91,8 @@ function Housing() {
   const renderPosts = (posts, loading) => {
     if (loading) {
       return <h2>Loading...</h2>;
+    } else if (posts.length === 0) {
+      return <h2>No housing met your criteria.</h2>;
     }
 
     return (
@@ -175,11 +204,7 @@ function Housing() {
         b["result-price"].replace("$", "").replace(",", "")
     );
 
-    setPosts(
-      sorted.filter(
-        (p) => p["result-hood"] && p["result-hood"].includes(searched)
-      )
-    );
+    setPosts(sorted);
   };
 
   const filterHiToLo = () => {
@@ -189,36 +214,11 @@ function Housing() {
         a["result-price"].replace("$", "").replace(",", "")
     );
 
-    setPosts(
-      sorted.filter(
-        (p) => p["result-hood"] && p["result-hood"].includes(searched)
-      )
-    );
+    setPosts(sorted);
   };
 
   const filterOrig = () => {
-    if (searched === null || searched === undefined || searched === "") {
-      setPosts(origPosts);
-    } else {
-      setPosts(
-        origPosts.filter(
-          (p) => p["result-hood"] && p["result-hood"].includes(searched)
-        )
-      );
-    }
-  };
-
-  const setSearched = (search) => {
-    if (searched === null || searched === undefined || searched === "") {
-      setPosts(origPosts);
-    } else {
-      setPosts(
-        origPosts.filter(
-          (p) => p["result-hood"] && p["result-hood"].includes(searched)
-        )
-      );
-    }
-    setSearch(search);
+    setPosts(origPosts);
   };
 
   return (
@@ -244,11 +244,10 @@ function Housing() {
               <input
                 type="text"
                 class="searchTerm"
-                value={searched}
+                ref={textInput}
                 placeholder="Search by neighborhood..."
-                onChange={(evt) => setSearched(evt.target.value)}
               />
-              <button type="submit" class="searchButton">
+              <button type="submit" class="searchButton" onClick={handleClick}>
                 <i class="fa fa-search" aria-hidden="true"></i>
               </button>
               <ButtonGroup className="dropdown">

@@ -1,8 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/home.css";
+import { useState } from "react";
 
 function Home() {
+  let textInput = React.createRef();
+  const [search, setSearch] = useState("");
+
+  let newLinkToHousing = {
+    pathname: "/housing",
+    textInput: search,
+  };
+
+  const handleClick = () => {
+    const newSearch = textInput.current.value;
+    setSearch(newSearch);
+  };
+
   return (
     <div>
       <div
@@ -27,9 +41,11 @@ function Home() {
             <input
               type="text"
               class="searchTerm"
-              placeholder="Enter a neighborhood in San Francisco to start searching..."
+              ref={textInput}
+              placeholder="Search by neighborhood..."
             />
-            <button type="submit" class="searchButton">
+
+            <button type="submit" class="searchButton" onClick={handleClick}>
               <i class="fa fa-search" aria-hidden="true"></i>
             </button>
           </div>
