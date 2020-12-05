@@ -72,13 +72,13 @@ h3 {
   color: white;
 }
 
-.btn {
+#signupbtn {
   background: rgb(86, 133, 61);
   background: rgba(86, 133, 61, 0.9);
   width: 260px;
 }
 
-.btn:hover {
+#signupbtn :hover {
   background-color: #385e24;
 }
 

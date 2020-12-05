@@ -6,24 +6,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
 function App() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const getPosts = async () => {
-      console.log("getting posts 1");
-      try {
-        setLoading(true);
-        const _posts = await fetch("/getposts").then((res) => res.json());
-        setPosts(_posts);
-        console.log("done");
-        setLoading(false);
-      } catch (err) {
-        console.log("error");
-      }
-    };
-    getPosts();
-  }, []);
-
   return (
     <div>
       <div className="App">
@@ -32,12 +14,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route path="/signup" component={Signup} />
             <Route path="/signin" component={Signin} />
-            <Route
-              path="/housing"
-              render={(props) => (
-                <Housing {...props} posts={posts} loading={loading} />
-              )}
-            />
+            <Route path="/housing" component={Housing} />
           </Switch>
         </Router>
       </div>

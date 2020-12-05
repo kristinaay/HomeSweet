@@ -4,13 +4,29 @@ import "../styles/housing.css";
 import { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Container, Row, Col } from "reactstrap";
+import { ButtonGroup, DropdownButton } from "react-bootstrap";
 
-function Housing(props) {
-  const posts = props.posts;
-  const loading = props.loading;
+function Housing() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(12);
   const [hovered, setHovered] = useState([]);
+
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        setLoading(true);
+        const _posts = await fetch("/getposts").then((res) => res.json());
+        setPosts(_posts);
+        console.log("done");
+        setLoading(false);
+      } catch (err) {
+        console.log("error");
+      }
+    };
+    getPosts();
+  }, []);
 
   useEffect(() => {
     const getHovered = () => {
@@ -20,9 +36,8 @@ function Housing(props) {
           arr.push(false);
         }
         setHovered(arr);
-        console.log(arr);
       } catch (err) {
-        console.log("error");
+        console.log("error", err);
       }
     };
     getHovered();
@@ -54,6 +69,8 @@ function Housing(props) {
             {posts.map((p, index) => (
               <Col md="4">
                 <div className="container-card">
+                  {" "}
+                  <h4 className="card-header-1">{p["result-title"]}</h4>
                   {getHov(index) && (
                     <div
                       className="moreinfo"
@@ -65,7 +82,6 @@ function Housing(props) {
                   )}
                   {!getHov(index) && (
                     <div className="whole-card">
-                      <h4 className="card-header-1">{p["result-title"]}</h4>
                       <div
                         className="card-body"
                         id="card-body-1"
@@ -73,7 +89,12 @@ function Housing(props) {
                         onMouseOver={() => changeHovered(index, true)}
                       >
                         <img
-                          src={`${p.images[0].replace("50x50c", "600x450")}`}
+                          src={
+                            p.images[0]
+                              ? `${p.images[0].replace("50x50c", "600x450")}`
+                              : "./images/notf.png"
+                          }
+                          onerror="this.onerror=null;this.src='./images/notf.png';"
                           alt="housing"
                           className="housing-img"
                         />
@@ -142,6 +163,16 @@ function Housing(props) {
     );
   };
 
+  const filterLoToHi = () => {
+    const sorted = [...posts].sort(
+      (a, b) =>
+        b["result-price"].replace("$", "").replace(",", "") -
+        a["result-price"].replace("$", "").replace(",", "")
+    );
+
+    setPosts(sorted);
+  };
+
   return (
     <div>
       <div
@@ -160,6 +191,31 @@ function Housing(props) {
       </div>
       <div className="house-full">
         <div className="inner">
+          <div className="filters">
+            <div class="search" id="search-2">
+              <input
+                type="text"
+                class="searchTerm"
+                placeholder="Search by neighborhood..."
+              />
+              <button type="submit" class="searchButton">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+              <ButtonGroup className="dropdown">
+                <DropdownButton title="Sort By:" id="dropdown-btn">
+                  <Button key="1" className="filter-btn" onClick={filterLoToHi}>
+                    Price (low to high)
+                  </Button>
+                  <Button key="2" className="filter-btn">
+                    Price (high to low){" "}
+                  </Button>
+                  <Button key="3" className="filter-btn">
+                    Date posted{" "}
+                  </Button>
+                </DropdownButton>
+              </ButtonGroup>
+            </div>
+          </div>
           <div className="rendered">{renderPosts(currPosts, loading)} </div>
           {Pagination(postsPerPage, posts.length, paginate, currentPage)}
         </div>

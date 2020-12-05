@@ -66,6 +66,7 @@ function SignUp() {
                       className="btn btn-dark"
                       style={{ marginTop: "10px" }}
                       value="Sign Up"
+                      id="signupbtn"
                     />
                   </div>
                 </form>
