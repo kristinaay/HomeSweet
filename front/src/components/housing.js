@@ -12,13 +12,16 @@ function Housing() {
   const [hovered, setHovered] = useState([]);
 
   const [posts, setPosts] = useState([]);
+  const [origPosts, setOrigPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const getPosts = async () => {
       try {
         setLoading(true);
         const _posts = await fetch("/getposts").then((res) => res.json());
         setPosts(_posts);
+        setOrigPosts(_posts);
         console.log("done");
         setLoading(false);
       } catch (err) {
@@ -98,6 +101,7 @@ function Housing() {
                           alt="housing"
                           className="housing-img"
                         />
+                        {p.price}
 
                         {p.postingbody
                           .replace(/<[^>]*>?/gm, "")
@@ -166,11 +170,25 @@ function Housing() {
   const filterLoToHi = () => {
     const sorted = [...posts].sort(
       (a, b) =>
+        a["result-price"].replace("$", "").replace(",", "") -
+        b["result-price"].replace("$", "").replace(",", "")
+    );
+
+    setPosts(sorted);
+  };
+
+  const filterHiToLo = () => {
+    const sorted = [...posts].sort(
+      (a, b) =>
         b["result-price"].replace("$", "").replace(",", "") -
         a["result-price"].replace("$", "").replace(",", "")
     );
 
     setPosts(sorted);
+  };
+
+  const filterOrig = () => {
+    setPosts(origPosts);
   };
 
   return (
@@ -206,11 +224,11 @@ function Housing() {
                   <Button key="1" className="filter-btn" onClick={filterLoToHi}>
                     Price (low to high)
                   </Button>
-                  <Button key="2" className="filter-btn">
+                  <Button key="2" className="filter-btn" onClick={filterHiToLo}>
                     Price (high to low){" "}
                   </Button>
-                  <Button key="3" className="filter-btn">
-                    Date posted{" "}
+                  <Button key="3" className="filter-btn" onClick={filterOrig}>
+                    Random
                   </Button>
                 </DropdownButton>
               </ButtonGroup>
