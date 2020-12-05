@@ -36,8 +36,10 @@ Passport.serializeUser((user, done) => {
   done(null, user._id);
 });
 
-Passport.deserializeUser((id, done) => {
-  done(null, { id });
+Passport.deserializeUser((user, id, done) => {
+  User.findById(id).then((user) => {
+    done(null, user);
+  });
 });
 
 Passport.use(
@@ -142,14 +144,16 @@ const isLoggedIn = (req, res, next) => {
   }
 };
 
-router.post(
+router.get(
   "/auth/google",
   Passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-router.post(
+router.get(
   "/auth/google/callback",
-  Passport.authenticate("google", { failureRedirect: "/failed" }),
+  Passport.authenticate("google", {
+    failureRedirect: "/signin?error=Error signing in with Google.",
+  }),
   function (req, res) {
     // Successful authentication, redirect home.
     res.redirect("/housing");

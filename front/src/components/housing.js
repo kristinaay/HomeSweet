@@ -14,6 +14,7 @@ function Housing() {
   const [posts, setPosts] = useState([]);
   const [origPosts, setOrigPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searched, setSearch] = useState("");
 
   useEffect(() => {
     const getPosts = async () => {
@@ -174,7 +175,11 @@ function Housing() {
         b["result-price"].replace("$", "").replace(",", "")
     );
 
-    setPosts(sorted);
+    setPosts(
+      sorted.filter(
+        (p) => p["result-hood"] && p["result-hood"].includes(searched)
+      )
+    );
   };
 
   const filterHiToLo = () => {
@@ -184,11 +189,36 @@ function Housing() {
         a["result-price"].replace("$", "").replace(",", "")
     );
 
-    setPosts(sorted);
+    setPosts(
+      sorted.filter(
+        (p) => p["result-hood"] && p["result-hood"].includes(searched)
+      )
+    );
   };
 
   const filterOrig = () => {
-    setPosts(origPosts);
+    if (searched === null || searched === undefined || searched === "") {
+      setPosts(origPosts);
+    } else {
+      setPosts(
+        origPosts.filter(
+          (p) => p["result-hood"] && p["result-hood"].includes(searched)
+        )
+      );
+    }
+  };
+
+  const setSearched = (search) => {
+    if (searched === null || searched === undefined || searched === "") {
+      setPosts(origPosts);
+    } else {
+      setPosts(
+        origPosts.filter(
+          (p) => p["result-hood"] && p["result-hood"].includes(searched)
+        )
+      );
+    }
+    setSearch(search);
   };
 
   return (
@@ -214,7 +244,9 @@ function Housing() {
               <input
                 type="text"
                 class="searchTerm"
+                value={searched}
                 placeholder="Search by neighborhood..."
+                onChange={(evt) => setSearched(evt.target.value)}
               />
               <button type="submit" class="searchButton">
                 <i class="fa fa-search" aria-hidden="true"></i>
