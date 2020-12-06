@@ -2,19 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/home.css";
 import { useState } from "react";
+import { useHistory } from "react-router";
 
 function Home() {
   let textInput = React.createRef();
-  const [search, setSearch] = useState("");
-
-  let newLinkToHousing = {
-    pathname: "/housing",
-    textInput: search,
-  };
+  const history = useHistory();
 
   const handleClick = () => {
     const newSearch = textInput.current.value;
-    setSearch(newSearch);
+
+    history.push({
+      pathname: "/housing",
+      state: { textInput: newSearch },
+    });
   };
 
   return (
@@ -36,17 +36,21 @@ function Home() {
       <section id="section1">
         <h2 className="discover">Rediscover Home</h2>
         <div className="subtitle">Find your perfect San Francisco housing.</div>
-        <div class="search-container">
-          <div class="search">
+        <div className="search-container">
+          <div className="search">
             <input
               type="text"
-              class="searchTerm"
+              className="searchTerm"
               ref={textInput}
               placeholder="Search by neighborhood..."
             />
 
-            <button type="submit" class="searchButton" onClick={handleClick}>
-              <i class="fa fa-search" aria-hidden="true"></i>
+            <button
+              type="submit"
+              className="searchButton"
+              onClick={handleClick}
+            >
+              <i className="fa fa-search" aria-hidden="true"></i>
             </button>
           </div>
         </div>

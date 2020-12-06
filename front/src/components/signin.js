@@ -29,7 +29,7 @@ function SignIn() {
               <div className="card-body">
                 <form action="/signin1" method="POST">
                   <div className="form-group">
-                    <label for="username">Username</label>
+                    <label htmlFor="username">Username</label>
                     <input
                       type="text"
                       id="username"
@@ -40,7 +40,7 @@ function SignIn() {
                   </div>
 
                   <div className="form-group">
-                    <label for="password">Password</label>
+                    <label htmlFor="password">Password</label>
                     <input
                       type="password"
                       id="password"

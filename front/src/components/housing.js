@@ -5,18 +5,21 @@ import { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Container, Row, Col } from "reactstrap";
 import { ButtonGroup, DropdownButton } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
 function Housing(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(12);
   const [hovered, setHovered] = useState([]);
-
+  const [loggedIn, setLoggedIn] = useState(false);
   const [posts, setPosts] = useState([]);
   const [origPosts, setOrigPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
 
   let textInput = React.createRef();
-  let textInputProps = props.textInput;
+  let textInputProps =
+    location.state === undefined ? "" : location.state.textInput;
 
   const handleClick = () => {
     const newSearch = textInput.current.value;
@@ -30,26 +33,34 @@ function Housing(props) {
   };
 
   useEffect(() => {
+    const getLoggedIn = async () => {
+      try {
+        const _loggedin = await fetch("/getlog", {
+          method: "GET",
+          credentials: "include",
+        }).then((res) => res.json());
+        setLoggedIn(_loggedin);
+        console.log("logged in: ", _loggedin);
+      } catch (err) {
+        console.log("error");
+      }
+    };
+    getLoggedIn();
+  }, []);
+
+  useEffect(() => {
     const getPosts = async () => {
       try {
         if (textInputProps !== null && textInputProps !== "") {
-          console.log(textInputProps);
           setLoading(true);
-          const newSearch = props.textInput.current.value;
           const _posts = await fetch("/getposts").then((res) => res.json());
           setOrigPosts(_posts);
-          setPosts(
-            origPosts.filter(
-              (p) => p["result-hood"] && p["result-hood"].includes(newSearch)
-            )
-          );
           setLoading(false);
         } else {
           setLoading(true);
           const _posts = await fetch("/getposts").then((res) => res.json());
           setPosts(_posts);
           setOrigPosts(_posts);
-          console.log("done");
           setLoading(false);
         }
       } catch (err) {
@@ -57,7 +68,15 @@ function Housing(props) {
       }
     };
     getPosts();
-  }, []);
+  }, [textInputProps]);
+
+  useEffect(() => {
+    setPosts(
+      origPosts.filter(
+        (p) => p["result-hood"] && p["result-hood"].includes(textInputProps)
+      )
+    );
+  }, [textInputProps, origPosts]);
 
   useEffect(() => {
     const getHovered = () => {
@@ -87,6 +106,56 @@ function Housing(props) {
   const indexLastPost = currentPage * postsPerPage;
   const indexFirstPost = indexLastPost - postsPerPage;
   const currPosts = posts.slice(indexFirstPost, indexLastPost);
+
+  const renderNav = (loggedIn) => {
+    if (!loggedIn) {
+      return (
+        <div
+          className="navbar navbar-expand-lg navbar-light bg-light justify-content-end"
+          role="navigation"
+        >
+          <Link to="/" className="logo-container">
+            <h1 className="logo-header">HOMESWEET</h1>
+          </Link>
+          <Link to="/signin" className="nav-links">
+            Sign In
+          </Link>
+          <Link to="/signup" className="nav-links">
+            Sign Up
+          </Link>
+        </div>
+      );
+    } else {
+      return (
+        <div
+          className="navbar navbar-expand-lg navbar-light bg-light justify-content-end"
+          role="navigation"
+        >
+          <Link to="/" className="logo-container">
+            <h1 className="logo-header">HOMESWEET</h1>
+          </Link>
+          <ButtonGroup className="dropdown-menu-1">
+            <DropdownButton
+              id="dropdown-btn-menu"
+              title=<i className="navbar-toggler-icon" />
+            >
+              <Button key="1" className="menu-btn">
+                My Appointments
+              </Button>
+              <Button key="2" className="menu-btn">
+                My Account
+              </Button>
+              <form className="form" action="/signout" method="post">
+                <Button key="3" className="menu-btn" type="submit">
+                  Sign Out
+                </Button>
+              </form>
+            </DropdownButton>
+          </ButtonGroup>
+        </div>
+      );
+    }
+  };
 
   const renderPosts = (posts, loading) => {
     if (loading) {
@@ -127,7 +196,12 @@ function Housing(props) {
                               ? `${p.images[0].replace("50x50c", "600x450")}`
                               : "./images/notf.png"
                           }
-                          onerror="this.onerror=null;this.src='./images/notf.png';"
+                          onError={(event) =>
+                            event.target.setAttribute(
+                              "src",
+                              "./images/notf.png"
+                            )
+                          }
                           alt="housing"
                           className="housing-img"
                         />
@@ -223,32 +297,24 @@ function Housing(props) {
 
   return (
     <div>
-      <div
-        className="navbar navbar-expand-lg navbar-light bg-light justify-content-end"
-        role="navigation"
-      >
-        <Link to="/" className="logo-container">
-          <h1 className="logo-header">HOMESWEET</h1>
-        </Link>
-        <Link to="/signin" className="nav-links">
-          Sign In
-        </Link>
-        <Link to="/signup" className="nav-links">
-          Sign Up
-        </Link>
-      </div>
+      {renderNav(loggedIn)}
+
       <div className="house-full">
         <div className="inner">
           <div className="filters">
-            <div class="search" id="search-2">
+            <div className="search" id="search-2">
               <input
                 type="text"
-                class="searchTerm"
+                className="searchTerm"
                 ref={textInput}
                 placeholder="Search by neighborhood..."
               />
-              <button type="submit" class="searchButton" onClick={handleClick}>
-                <i class="fa fa-search" aria-hidden="true"></i>
+              <button
+                type="submit"
+                className="searchButton"
+                onClick={handleClick}
+              >
+                <i className="fa fa-search" aria-hidden="true"></i>
               </button>
               <ButtonGroup className="dropdown">
                 <DropdownButton title="Sort By:" id="dropdown-btn">

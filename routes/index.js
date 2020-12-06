@@ -15,19 +15,22 @@ const app = express();
 // app.use(cookieParser("cookie_secret"));
 
 app.use(express.static("public"));
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(cookieParser("cookie_secret"));
 app.use(
-  cookieSession({
-    name: "home-session",
-    keys: ["key1", "key2"],
+  Session({
+    secret: "cookie_secret",
+    resave: true,
+    saveUninitialized: true,
   })
 );
+
 app.use(Passport.initialize());
 app.use(Passport.session());
-// app.use(Passport.initialize());
-// app.use(Passport.session());
+
+app.use(cookieParser("cookie_secret"));
 
 const MongoClient = require("mongodb").MongoClient;
 const uri = process.env.MONGO_URL || "mongodb://localhost:27017";
@@ -36,12 +39,9 @@ Passport.serializeUser((user, done) => {
   done(null, user._id);
 });
 
-Passport.deserializeUser((user, id, done) => {
-  User.findById(id).then((user) => {
-    done(null, user);
-  });
+Passport.deserializeUser((id, done) => {
+  done(null, { id });
 });
-
 Passport.use(
   new GoogleStrategy(
     {
@@ -90,11 +90,9 @@ Passport.use(
 router.post(
   "/signin1",
   Passport.authenticate("local", {
+    successRedirect: "/housing",
     failureRedirect: "/signin?error=Invalid username or password.",
-  }),
-  function (req, res) {
-    res.redirect("/housing");
-  }
+  })
 );
 
 router.post("/signup1", async (req, res, next) => {
@@ -138,18 +136,18 @@ router.post("/signup1", async (req, res, next) => {
 
 const isLoggedIn = (req, res, next) => {
   if (req.user) {
-    next();
+    res.send(true);
   } else {
-    res.sendStatus(401);
+    res.send(false);
   }
 };
 
-router.get(
+router.post(
   "/auth/google",
   Passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-router.get(
+router.post(
   "/auth/google/callback",
   Passport.authenticate("google", {
     failureRedirect: "/signin?error=Error signing in with Google.",
@@ -164,10 +162,28 @@ router.post("/failed", (req, res) =>
   res.send("signup/?error=Error signing in with Google.")
 );
 
+app.use((req, res, next) => {
+  res.locals.loggedIn = req.isAuthenticated();
+  next();
+});
+
+router.get("/getlog", async (req, res) => {
+  if (req.isAuthenticated()) {
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+});
+
 router.get("/getposts", async (req, res) => {
-  console.log("getting posts 2");
+  console.log("getting posts");
   const posts = await myDB.getPosts();
   res.json(posts);
+});
+
+router.post("/signout", (req, res, next) => {
+  req.session.destroy();
+  res.redirect("/");
 });
 
 module.exports = router;
