@@ -150,12 +150,9 @@ router.post(
 router.post(
   "/auth/google/callback",
   Passport.authenticate("google", {
+    successRedirect: "/housing",
     failureRedirect: "/signin?error=Error signing in with Google.",
-  }),
-  function (req, res) {
-    // Successful authentication, redirect home.
-    res.redirect("/housing");
-  }
+  })
 );
 
 router.post("/failed", (req, res) =>
