@@ -1,10 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
+
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
 import "../styles/housing.css";
 import { useState, useEffect } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Container, Row, Col } from "reactstrap";
 import { ButtonGroup, DropdownButton } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
@@ -177,7 +177,7 @@ function Housing(props) {
     const items = [];
     for (let i = 0; i < p[1].length; i++) {
       items.push(
-        <div>
+        <div className="indiv-img col-xs-6">
           <img
             src={
               p[1]
@@ -194,7 +194,14 @@ function Housing(props) {
       );
     }
 
-    return <div>{items}</div>;
+    return (
+      <div>
+        {" "}
+        <div className="container-fluid" id="cont">
+          <div className="row">{items}</div>
+        </div>
+      </div>
+    );
   };
 
   const renderPosts = (posts, loading) => {
@@ -206,40 +213,41 @@ function Housing(props) {
 
     return (
       <div>
-        <Modal isOpen={showModal} contentLabel="Example Modal">
+        <Modal isOpen={showModal}>
           <div className="modal-header">
             <button onClick={closeModal} className="close-btn">
               X
             </button>
-            <h2 className="modal-header">{p[3]}</h2>
-
-            <div className="modal-body">
-              <div className="modal-img"></div>
-              <div>
-                <b>Price:</b> {p[4]}
-              </div>
-              <div>
-                <b>Neighborhood:</b> {p[6]}
-              </div>
-              <div>
-                <b>Map Address:</b> {p[13]}
-              </div>
-              <div>
-                <b>Date posted:</b> {p[8]}
-              </div>
-              <div>
-                <b>Housing information:</b> {p[5]}
-              </div>
-              <div>
-                <b>About:</b>
-                {`${p[9]}`
-                  .replace(/<[^>]*>?/gm, "")
-                  .replace("QR Code Link to This Post", "")}
-              </div>{" "}
-            </div>
-
-            <div className="modal-img">{renderImg()}</div>
+            <h2 className="modal-header-2">{p[3]}</h2>
           </div>
+
+          <div className="modal-body">
+            <div className="modal-img"></div>
+            <div>
+              <b>Price:</b> {p[4]}
+            </div>
+            <div>
+              <b>Neighborhood:</b> {p[6]}
+            </div>
+            <div>
+              <b>Map Address:</b> {p[13]}
+            </div>
+            <div>
+              <b>Date posted:</b> {p[8]}
+            </div>
+            <div>
+              <b>Housing information:</b> {p[5]}
+            </div>
+            <div>
+              <b>About:</b>
+              {`${p[9]}`
+                .replaceAll("&amp;", "and")
+                .replace(/<[^>]*>?/gm, "")
+                .replace("QR Code Link to This Post", "")}
+            </div>{" "}
+          </div>
+
+          <div className="modal-img">{renderImg()}</div>
         </Modal>
 
         <Container>
@@ -283,11 +291,6 @@ function Housing(props) {
                           alt="housing"
                           className="housing-img"
                         />
-                        {p.price}
-
-                        {p.postingbody
-                          .replace(/<[^>]*>?/gm, "")
-                          .replace("QR Code Link to This Post", "")}
                       </div>
                     </div>
                   )}
@@ -404,7 +407,7 @@ function Housing(props) {
                     Price (high to low){" "}
                   </Button>
                   <Button key="3" className="filter-btn" onClick={filterOrig}>
-                    Random
+                    Default
                   </Button>
                 </DropdownButton>
               </ButtonGroup>

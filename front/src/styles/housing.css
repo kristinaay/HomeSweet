@@ -20,19 +20,23 @@ body {
   padding: 30px;
 }
 
-.modal-img {
-  margin: 10px;
-}
-
-.housing-img-2 {
-  margin: 25px;
-  padding: 25px;
+Modal {
+  overflow-x: hidden;
 }
 
 .close-btn {
   float: right;
   width: 30px;
   height: 30px;
+}
+
+#cont {
+  padding: 5px;
+  margin: 25px;
+}
+
+.housing-img-2 {
+  padding: 10px;
 }
 
 .modal-header {
