@@ -1,4 +1,6 @@
 import React from "react";
+import ReactDOM from "react-dom";
+import Modal from "react-modal";
 import { Link } from "react-router-dom";
 import "../styles/housing.css";
 import { useState, useEffect } from "react";
@@ -15,6 +17,8 @@ function Housing(props) {
   const [posts, setPosts] = useState([]);
   const [origPosts, setOrigPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [p, setP] = useState([]);
   const location = useLocation();
 
   let textInput = React.createRef();
@@ -103,6 +107,10 @@ function Housing(props) {
     return hovered[index];
   };
 
+  const getModal = () => {
+    return showModal;
+  };
+
   const indexLastPost = currentPage * postsPerPage;
   const indexFirstPost = indexLastPost - postsPerPage;
   const currPosts = posts.slice(indexFirstPost, indexLastPost);
@@ -157,6 +165,38 @@ function Housing(props) {
     }
   };
 
+  const clickedInfo = (p) => {
+    setP(Object.values(p));
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const renderImg = () => {
+    const items = [];
+    for (let i = 0; i < p[1].length; i++) {
+      items.push(
+        <div>
+          <img
+            src={
+              p[1]
+                ? `${`${p[1][i]}`.replace("50x50c", "600x450")}`
+                : "./images/notf.png"
+            }
+            onError={(event) =>
+              event.target.setAttribute("src", "./images/notf.png")
+            }
+            alt="housing"
+            className="housing-img-2"
+          />
+        </div>
+      );
+    }
+
+    return <div>{items}</div>;
+  };
+
   const renderPosts = (posts, loading) => {
     if (loading) {
       return <h2>Loading...</h2>;
@@ -166,6 +206,42 @@ function Housing(props) {
 
     return (
       <div>
+        <Modal isOpen={showModal} contentLabel="Example Modal">
+          <div className="modal-header">
+            <button onClick={closeModal} className="close-btn">
+              X
+            </button>
+            <h2 className="modal-header">{p[3]}</h2>
+
+            <div className="modal-body">
+              <div className="modal-img"></div>
+              <div>
+                <b>Price:</b> {p[4]}
+              </div>
+              <div>
+                <b>Neighborhood:</b> {p[6]}
+              </div>
+              <div>
+                <b>Map Address:</b> {p[13]}
+              </div>
+              <div>
+                <b>Date posted:</b> {p[8]}
+              </div>
+              <div>
+                <b>Housing information:</b> {p[5]}
+              </div>
+              <div>
+                <b>About:</b>
+                {`${p[9]}`
+                  .replace(/<[^>]*>?/gm, "")
+                  .replace("QR Code Link to This Post", "")}
+              </div>{" "}
+            </div>
+
+            <div className="modal-img">{renderImg()}</div>
+          </div>
+        </Modal>
+
         <Container>
           <Row>
             {posts.map((p, index) => (
@@ -179,7 +255,9 @@ function Housing(props) {
                       onMouseLeave={() => changeHovered(index, false)}
                       onMouseOver={() => changeHovered(index, true)}
                     >
-                      Click for more info!
+                      <Button className="click" onClick={() => clickedInfo(p)}>
+                        Click for more info!{" "}
+                      </Button>
                     </div>
                   )}
                   {!getHov(index) && (
@@ -221,6 +299,7 @@ function Housing(props) {
       </div>
     );
   };
+
   const paginate = (pageNumber, totalPosts) => {
     if (pageNumber === "<<") {
       setCurrentPage(1);

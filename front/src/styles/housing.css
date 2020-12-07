@@ -10,6 +10,35 @@ body {
   background-size: cover;
 }
 
+.modal-header {
+  display: inline-block;
+  width: 100%;
+  margin-top: 0;
+}
+
+.modal-body {
+  padding: 30px;
+}
+
+.modal-img {
+  margin: 10px;
+}
+
+.housing-img-2 {
+  margin: 25px;
+  padding: 25px;
+}
+
+.close-btn {
+  float: right;
+  width: 30px;
+  height: 30px;
+}
+
+.modal-header {
+  width: 100%;
+  border-bottom: none;
+}
 .house-full {
   background-color: rgba(242, 218, 201, 1);
   background-blend-mode: lighten;
@@ -122,6 +151,23 @@ footer {
   margin-top: 10px;
 }
 
+.click {
+  background: rgba(143, 169, 149, 0.85);
+  font-size: 30px;
+  border: none;
+  outline: none;
+  width: 325px;
+  height: 325px;
+}
+
+.click:hover {
+  border: 1px;
+  background: rgb(143, 169, 149);
+  background: rgba(143, 169, 149, 0.85);
+  border-style: solid;
+  border-color: white;
+}
+
 .pagination {
   text-align: center;
   float: center;
@@ -137,7 +183,7 @@ footer {
   margin-right: 0;
   margin: 10px;
   height: 400px;
-  overflow: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
@@ -151,12 +197,9 @@ footer {
   height: 325px;
   overflow: hidden;
   background: rgb(143, 169, 149);
-  background: rgba(143, 169, 149, 0.85);
   color: white;
   font-size: 25px;
   font-family: "Bebas Neue", cursive;
-  padding: 40px;
-  padding-top: 140px;
 }
 
 .Container {

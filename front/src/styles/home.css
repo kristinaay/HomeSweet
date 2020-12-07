@@ -5,7 +5,27 @@ body {
   height: 100%;
   align-content: center;
 }
+Modal.Dialog {
+  /*Position and width*/
+  position: fixed;
+  width: 30%;
+  height: fit-content;
 
+  /*NOTE: If you want your modal's position to be absolute or fixed, you should also include:*/
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  /*Centering horizintally*/
+  margin: auto;
+
+  /*Purely visual stuff*/
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  background-color: ghostwhite;
+  text-align: center;
+}
 .navbar {
   font-family: "Montserrat", sans-serif;
   position: relative;
