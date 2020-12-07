@@ -223,13 +223,13 @@ footer {
   align-items: center;
   margin-left: 0;
   margin-right: 0;
-  font-size: 18px;
+  font-size: 17px;
   padding-top: 15px;
   padding-left: 15px;
   background: rgb(255, 255, 255);
   background: rgba(255, 255, 255, 0.85);
   padding-right: 15px;
-  height: 80px;
+  height: 85px;
 }
 
 .whole-card {

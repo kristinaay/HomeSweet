@@ -8,6 +8,8 @@
     "heroku-postbuild": "cd front && npm install && npm run build"
   },
   "dependencies": {
+    "@fullcalendar/daygrid": "^5.4.0",
+    "@fullcalendar/react": "^5.4.0",
     "body": "^5.1.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
@@ -28,6 +30,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "pug": "^3.0.0",
+    "react-calendar": "^3.2.1",
     "react-slideshow-image": "^3.4.2",
     "semantic-ui-react": "^2.0.1"
   }

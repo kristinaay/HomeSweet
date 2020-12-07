@@ -1,5 +1,4 @@
 import React from "react";
-
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
 import "../styles/housing.css";
@@ -147,14 +146,21 @@ function Housing(props) {
               id="dropdown-btn-menu"
               title=<i className="navbar-toggler-icon" />
             >
-              <Button key="1" className="menu-btn">
-                My Appointments
-              </Button>
-              <Button key="2" className="menu-btn">
+              <Link to="/housing">
+                <Button key="1" className="menu-btn">
+                  See All Housing
+                </Button>
+              </Link>
+              <Link to="/appointments">
+                <Button key="2" className="menu-btn">
+                  My Appointments
+                </Button>
+              </Link>
+              <Button key="3" className="menu-btn">
                 My Account
               </Button>
               <form className="form" action="/signout" method="post">
-                <Button key="3" className="menu-btn" type="submit">
+                <Button key="4" className="menu-btn" type="submit">
                   Sign Out
                 </Button>
               </form>
