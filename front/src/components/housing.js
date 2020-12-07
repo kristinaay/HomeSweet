@@ -18,7 +18,7 @@ function Housing(props) {
   const [origPosts, setOrigPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [p, setP] = useState([]);
+  const [p, setP] = useState([null, [null]]);
   const location = useLocation();
 
   let textInput = React.createRef();

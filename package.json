@@ -28,6 +28,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "pug": "^3.0.0",
+    "react-slideshow-image": "^3.4.2",
     "semantic-ui-react": "^2.0.1"
   }
 }
