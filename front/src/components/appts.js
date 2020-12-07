@@ -1,9 +1,11 @@
-import moment from "moment";
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/appts.css";
 import { ButtonGroup, DropdownButton, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
 
 function Appts() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -61,10 +63,11 @@ function Appts() {
                   See All Housing
                 </Button>
               </Link>
-
-              <Button key="2" className="menu-btn">
-                My Account
-              </Button>
+              <Link to="/account">
+                <Button key="2" className="menu-btn">
+                  My Account
+                </Button>
+              </Link>
               <form className="form" action="/signout" method="post">
                 <Button key="3" className="menu-btn" type="submit">
                   Sign Out
@@ -76,7 +79,32 @@ function Appts() {
       );
     }
   };
-  return <div>{renderNav(loggedIn)}</div>;
+  return (
+    <div>
+      {renderNav(loggedIn)}{" "}
+      <div className="cal">
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin]}
+          initialView="timeGridWeek"
+          defaultDate={new Date()}
+          selectable={true}
+          displayEventTime={false}
+          eventColor="#8DA562"
+          defaultView="timeGridWeek"
+          header={{
+            left: "prev,next today",
+            center: "title",
+            right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+          }}
+          eventTimeFormat={{
+            hour: "2-digit",
+            minute: "2-digit",
+            meridiem: false,
+          }}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default Appts;

@@ -151,9 +151,11 @@ function Housing(props) {
                   My Appointments
                 </Button>
               </Link>
-              <Button key="2" className="menu-btn">
-                My Account
-              </Button>
+              <Link to="/account">
+                <Button key="2" className="menu-btn">
+                  My Account
+                </Button>
+              </Link>
               <form className="form" action="/signout" method="post">
                 <Button key="3" className="menu-btn" type="submit">
                   Sign Out

@@ -68,19 +68,18 @@ footer {
 }
 
 .card-header {
-  background: rgb(86, 133, 61);
-  background: rgba(86, 133, 61, 0.9);
+  background-color: #42692d;
+
   color: white;
 }
 
 #signinbtn {
-  background: rgb(86, 133, 61);
-  background: rgba(86, 133, 61, 0.9);
+  background-color: #42692d;
   width: 260px;
 }
 
-#signinbtn :hover {
-  background-color: #385e24;
+#signinbtn:hover {
+  background-color: #2d4a1e;
 }
 
 .card-body {

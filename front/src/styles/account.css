@@ -1,0 +1,61 @@
+#my-acc-header {
+  width: 680px;
+}
+
+#my-acc-body {
+  width: 680px;
+}
+
+.acccard {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 100px;
+}
+
+.form-1 {
+  display: inline-block;
+}
+
+.form-group-1 {
+  display: inline-block;
+  margin: 10px;
+  height: 50px;
+}
+
+.form-group-2 {
+  display: inline-block;
+  height: 50px;
+  margin-right: -8px;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#confirmusername {
+  width: 427px;
+  margin-right: 0px;
+}
+
+.edit-acc-btn {
+  width: 150px;
+  background-color: #42692d;
+  color: white;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+}
+
+.edit-acc-btn:hover {
+  background-color: #325221;
+}
+
+#delete-acc-btn {
+  background-color: #945e00;
+}
+
+#delete-acc-btn:hover {
+  background-color: #7d5501;
+}
+
+.error {
+  margin-left: 10px;
+}

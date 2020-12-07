@@ -3,6 +3,7 @@ import Signup from "./components/signup.js";
 import Signin from "./components/signin.js";
 import Housing from "./components/housing.js";
 import Appts from "./components/appts.js";
+import Account from "./components/account.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/signin" component={Signin} />
             <Route path="/housing" component={Housing} />
             <Route path="/appointments" component={Appts} />
+            <Route path="/account" component={Account} />
           </Switch>
         </Router>
       </div>

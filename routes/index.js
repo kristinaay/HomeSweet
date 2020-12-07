@@ -183,4 +183,84 @@ router.post("/signout", (req, res, next) => {
   res.redirect("/");
 });
 
+router.post("/deleteacc", async (req, res, next) => {
+  const users = await myDB.initializeUsers();
+  const info = req.body;
+
+  users.findOne({ username: info.confirmusername }, function (err, user) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      res.redirect("/account?error=User not found, please try again.");
+    } else {
+      users.deleteOne({
+        username: info.confirmusername,
+      });
+      res.redirect("/?msg=Account was successfully deleted.");
+    }
+  });
+});
+
+router.post("/updateuser", async (req, res, next) => {
+  const users = await myDB.initializeUsers();
+  const info = req.body;
+  users.findOne({ username: info.newusername }, function (err, user) {
+    if (err) {
+      return next(err);
+    }
+    if (user) {
+      res.redirect("/account?error=Username already exists.");
+    } else {
+      users.findOne({ username: info.username }, function (err, user) {
+        if (err) {
+          return next(err);
+        }
+        if (!user) {
+          res.redirect("/account?error=User not found, please try again.");
+        } else {
+          users.updateOne(
+            {
+              username: info.username,
+            },
+            {
+              $set: {
+                username: info.newusername,
+              },
+            }
+          );
+
+          res.redirect("/account?msg=Profile updated successfully.");
+        }
+      });
+    }
+  });
+});
+
+router.post("/updatepass", async (req, res, next) => {
+  const users = await myDB.initializeUsers();
+  const info = req.body;
+
+  users.findOne({ username: info.username }, function (err, user) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      res.redirect("/account?error=User not found, please try again.");
+    } else {
+      users.updateOne(
+        {
+          username: info.username,
+        },
+        {
+          $set: {
+            password: authUtils.encrypt(info.newpassword),
+          },
+        }
+      );
+
+      res.redirect("/account?msg=Profile updated successfully.");
+    }
+  });
+});
 module.exports = router;
