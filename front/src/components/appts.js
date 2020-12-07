@@ -61,11 +61,7 @@ function Appts() {
                   See All Housing
                 </Button>
               </Link>
-              <Link to="/appointments">
-                <Button key="1" className="menu-btn">
-                  My Appointments
-                </Button>
-              </Link>
+
               <Button key="2" className="menu-btn">
                 My Account
               </Button>

@@ -146,21 +146,16 @@ function Housing(props) {
               id="dropdown-btn-menu"
               title=<i className="navbar-toggler-icon" />
             >
-              <Link to="/housing">
-                <Button key="1" className="menu-btn">
-                  See All Housing
-                </Button>
-              </Link>
               <Link to="/appointments">
-                <Button key="2" className="menu-btn">
+                <Button key="1" className="menu-btn">
                   My Appointments
                 </Button>
               </Link>
-              <Button key="3" className="menu-btn">
+              <Button key="2" className="menu-btn">
                 My Account
               </Button>
               <form className="form" action="/signout" method="post">
-                <Button key="4" className="menu-btn" type="submit">
+                <Button key="3" className="menu-btn" type="submit">
                   Sign Out
                 </Button>
               </form>
