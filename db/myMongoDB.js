@@ -23,11 +23,10 @@ function MyDB() {
     //database
     const db = client.db("db2");
     //collection
-    const events = db.collection("events");
+    const events1 = db.collection("events");
 
-    const query = {};
-    const eventsposts = await events.findOne({ username: username });
-    console.log("test: ", username);
+    const eventsposts = await events1.findOne({ username: username });
+    console.log("try", eventsposts);
     return eventsposts;
   };
 

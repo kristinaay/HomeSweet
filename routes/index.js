@@ -181,9 +181,8 @@ router.get("/getposts", async (req, res) => {
 });
 
 router.post("/getevents", async (req, res) => {
-  console.log("testing router", req.body.username);
   const events = await myDB.getEvents(req.body.username);
-
+  console.log("index", events);
   res.json(events);
 });
 

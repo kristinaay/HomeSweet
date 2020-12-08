@@ -14,35 +14,6 @@ function Appts() {
   const [user, setUser] = useState("");
 
   useEffect(() => {
-    const getEventData = async () => {
-      console.log(`getting events ${user}`);
-      try {
-        const _events = await fetch("/getevents", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: user,
-          }),
-        }).then((res) => res.json());
-
-        events.push({
-          title: _events.title,
-          start: _events.start,
-          end: _events.end,
-        });
-        setEvents(events);
-        console.log(events);
-      } catch (err) {
-        console.log("error ", err);
-      }
-    };
-    getEventData();
-  }, [user, events]);
-
-  useEffect(() => {
     const storedUser = localStorage.getItem("username");
     if (storedUser) {
       setUser(storedUser);
@@ -64,6 +35,31 @@ function Appts() {
     };
     getLoggedIn();
   }, []);
+
+  useEffect(() => {
+    const getEventData = async () => {
+      try {
+        const _events = await fetch("/getevents", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: user,
+          }),
+        }).then((res) => res.json());
+
+        let events2 = _events;
+
+        setEvents(events2);
+        console.log("front", events2);
+      } catch (err) {
+        console.log("error ", err);
+      }
+    };
+    getEventData();
+  }, [user]);
 
   const renderNav = (loggedIn) => {
     if (!loggedIn) {
@@ -120,20 +116,25 @@ function Appts() {
   };
 
   const getEvents = () => {
-    return events;
+    let rtn =
+      events !== null
+        ? events.eventsarr
+        : { title: "demo", start: "2020-12-08 05:00", end: "2020-12-08 05:30" };
+    return rtn;
   };
 
   return (
     <div>
       {renderNav(loggedIn)}{" "}
       <div className="cal">
+        <div>{console.log("inside", events)}</div>
         <FullCalendar
           plugins={[interactionPlugin, dayGridPlugin, timeGridPlugin]}
           initialView="timeGridWeek"
           defaultDate={new Date()}
           selectable={true}
           displayEventTime={true}
-          events={events}
+          events={getEvents()}
           eventColor="#8DA562"
           eventClick={(clickInfo) => {
             if (
@@ -145,7 +146,9 @@ function Appts() {
             }
           }}
           select={(selectInfo) => {
-            let title = prompt("Please enter a new title for your event");
+            let title = prompt(
+              `Please enter a new title for your event ${events}`
+            );
 
             let calendar = selectInfo.view.calendar;
 
