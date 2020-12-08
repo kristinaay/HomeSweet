@@ -6,9 +6,48 @@ import { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
 
 function Appts() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [events, setEvents] = useState([]);
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    const getEventData = async () => {
+      console.log(`getting events ${user}`);
+      try {
+        const _events = await fetch("/getevents", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: user,
+          }),
+        }).then((res) => res.json());
+
+        events.push({
+          title: _events.title,
+          start: _events.start,
+          end: _events.end,
+        });
+        setEvents(events);
+        console.log(events);
+      } catch (err) {
+        console.log("error ", err);
+      }
+    };
+    getEventData();
+  }, [user, events]);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("username");
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   useEffect(() => {
     const getLoggedIn = async () => {
@@ -79,17 +118,45 @@ function Appts() {
       );
     }
   };
+
+  const getEvents = () => {
+    return events;
+  };
+
   return (
     <div>
       {renderNav(loggedIn)}{" "}
       <div className="cal">
         <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin]}
+          plugins={[interactionPlugin, dayGridPlugin, timeGridPlugin]}
           initialView="timeGridWeek"
           defaultDate={new Date()}
           selectable={true}
-          displayEventTime={false}
+          displayEventTime={true}
+          events={events}
           eventColor="#8DA562"
+          eventClick={(clickInfo) => {
+            if (
+              prompt(
+                `Are you sure you want to delete the event '${clickInfo.event.title}'`
+              ) === "yes"
+            ) {
+              clickInfo.event.remove();
+            }
+          }}
+          select={(selectInfo) => {
+            let title = prompt("Please enter a new title for your event");
+
+            let calendar = selectInfo.view.calendar;
+
+            // valid?
+            calendar.addEvent({
+              title: title,
+              start: selectInfo.startStr,
+              end: selectInfo.endStr,
+              allDay: selectInfo.allDay,
+            });
+          }}
           defaultView="timeGridWeek"
           header={{
             left: "prev,next today",

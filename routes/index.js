@@ -90,9 +90,11 @@ Passport.use(
 router.post(
   "/signin1",
   Passport.authenticate("local", {
-    successRedirect: "/housing",
     failureRedirect: "/signin?error=Invalid username or password.",
-  })
+  }),
+  function (req, res) {
+    res.redirect("/housing?username=" + req.user.username);
+  }
 );
 
 router.post("/signup1", async (req, res, next) => {
@@ -176,6 +178,13 @@ router.get("/getposts", async (req, res) => {
   console.log("getting posts");
   const posts = await myDB.getPosts();
   res.json(posts);
+});
+
+router.post("/getevents", async (req, res) => {
+  console.log("testing router", req.body.username);
+  const events = await myDB.getEvents(req.body.username);
+
+  res.json(events);
 });
 
 router.post("/signout", (req, res, next) => {

@@ -17,6 +17,20 @@ function MyDB() {
     return houses.find(query).toArray();
   };
 
+  myDB.getEvents = async (username) => {
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+    //database
+    const db = client.db("db2");
+    //collection
+    const events = db.collection("events");
+
+    const query = {};
+    const eventsposts = await events.findOne({ username: username });
+    console.log("test: ", username);
+    return eventsposts;
+  };
+
   myDB.getHouses = async () => {
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     await client.connect();

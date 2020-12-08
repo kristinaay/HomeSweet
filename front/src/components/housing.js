@@ -9,6 +9,11 @@ import { ButtonGroup, DropdownButton } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
 function Housing(props) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const username = urlParams.get("username");
+  if (username !== null && username !== undefined) {
+    localStorage.setItem("username", username);
+  }
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(12);
   const [hovered, setHovered] = useState([]);
