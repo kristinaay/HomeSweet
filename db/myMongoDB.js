@@ -20,14 +20,49 @@ function MyDB() {
   myDB.getEvents = async (username) => {
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     await client.connect();
-    //database
+
     const db = client.db("db2");
-    //collection
+
     const events1 = db.collection("events");
 
     const eventsposts = await events1.findOne({ username: username });
     console.log("try", eventsposts);
     return eventsposts;
+  };
+
+  myDB.addToDB = async (username, title, start, end, allday) => {
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+
+    const db = client.db("db2");
+
+    const events1 = db.collection("events");
+    events1.findOne({ username: username }, function (err, user) {
+      if (err) {
+        return next(err);
+      }
+      if (user) {
+        const update = {
+          $push: {
+            eventsarr: {
+              title: title,
+              start: start,
+              end: end,
+              allday: allday,
+            },
+          },
+        };
+
+        events1.updateOne({ username: username }, update);
+
+        console.log(user.eventsarr);
+      } else {
+        events1.insertOne({
+          username: username,
+          eventsarr: [{ title: title, start: start, end: end, allday: allday }],
+        });
+      }
+    });
   };
 
   myDB.getHouses = async () => {

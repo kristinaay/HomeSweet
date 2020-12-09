@@ -186,6 +186,18 @@ router.post("/getevents", async (req, res) => {
   res.json(events);
 });
 
+router.post("/senddata", async (req, res) => {
+  const info = req.body;
+  const data = await myDB.addToDB(
+    info.username,
+    info.title,
+    info.start,
+    info.end,
+    info.allDay
+  );
+  res.json(data);
+});
+
 router.post("/signout", (req, res, next) => {
   req.session.destroy();
   res.redirect("/");

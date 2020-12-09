@@ -145,7 +145,7 @@ function Appts() {
               clickInfo.event.remove();
             }
           }}
-          select={(selectInfo) => {
+          select={async (selectInfo) => {
             let title = prompt(
               `Please enter a new title for your event ${events}`
             );
@@ -159,6 +159,25 @@ function Appts() {
               end: selectInfo.endStr,
               allDay: selectInfo.allDay,
             });
+            try {
+              const send = await fetch("/senddata", {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  username: user,
+                  title: title,
+                  start: selectInfo.startStr,
+                  end: selectInfo.endStr,
+                  allDay: selectInfo.allDay,
+                }),
+              });
+              console.log("done");
+            } catch (err) {
+              console.log("error");
+            }
           }}
           defaultView="timeGridWeek"
           header={{
