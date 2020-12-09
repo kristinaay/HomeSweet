@@ -16,3 +16,12 @@
 .fc .fc-col-header-cell-cushion {
   color: black;
 }
+
+.fc .fc-toolbar-title {
+  font-size: 1.75em;
+  margin-left: 25px;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+  margin: 25px;
+}
