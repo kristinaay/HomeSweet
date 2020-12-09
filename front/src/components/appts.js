@@ -136,19 +136,32 @@ function Appts() {
           displayEventTime={true}
           events={getEvents()}
           eventColor="#8DA562"
-          eventClick={(clickInfo) => {
+          eventClick={async (clickInfo) => {
             if (
               prompt(
                 `Are you sure you want to delete the event '${clickInfo.event.title}'`
               ) === "yes"
             ) {
               clickInfo.event.remove();
+              console.log("Hii", clickInfo.event.title);
+              await fetch("/deletedata", {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  username: user,
+                  title: clickInfo.event.title,
+                  start: clickInfo.event.startStr,
+                  end: clickInfo.event.endStr,
+                  allDay: clickInfo.event.allDay,
+                }),
+              });
             }
           }}
           select={async (selectInfo) => {
-            let title = prompt(
-              `Please enter a new title for your event ${events}`
-            );
+            let title = prompt("Please enter a new title for your event");
 
             let calendar = selectInfo.view.calendar;
 
@@ -160,7 +173,7 @@ function Appts() {
               allDay: selectInfo.allDay,
             });
             try {
-              const send = await fetch("/senddata", {
+              await fetch("/senddata", {
                 method: "POST",
                 headers: {
                   Accept: "application/json",

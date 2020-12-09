@@ -54,8 +54,6 @@ function MyDB() {
         };
 
         events1.updateOne({ username: username }, update);
-
-        console.log(user.eventsarr);
       } else {
         events1.insertOne({
           username: username,
@@ -63,6 +61,23 @@ function MyDB() {
         });
       }
     });
+  };
+
+  myDB.deleteFromDB = async (username, title, start, end, allday) => {
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+
+    const db = client.db("db2");
+
+    const events1 = db.collection("events");
+    events1.update(
+      { username: username },
+      {
+        $pull: {
+          eventsarr: { title: title, start: start, end: end, allday: allday },
+        },
+      }
+    );
   };
 
   myDB.getHouses = async () => {
