@@ -7,6 +7,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 function Appts() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -135,15 +137,12 @@ function Appts() {
           selectable={true}
           displayEventTime={true}
           events={getEvents()}
-          eventColor="#8DA562"
+          eventColor="#42692d"
           eventClick={async (clickInfo) => {
-            if (
-              prompt(
-                `Are you sure you want to delete the event '${clickInfo.event.title}'`
-              ) === "yes"
-            ) {
-              clickInfo.event.remove();
-              console.log("Hii", clickInfo.event.title);
+            let bool = window.confirm(
+              "Are you sure you want to delete this event?"
+            );
+            if (bool) {
               await fetch("/deletedata", {
                 method: "POST",
                 headers: {
@@ -158,6 +157,7 @@ function Appts() {
                   allDay: clickInfo.event.allDay,
                 }),
               });
+              clickInfo.event.remove();
             }
           }}
           select={async (selectInfo) => {
@@ -165,31 +165,32 @@ function Appts() {
 
             let calendar = selectInfo.view.calendar;
 
-            // valid?
-            calendar.addEvent({
-              title: title,
-              start: selectInfo.startStr,
-              end: selectInfo.endStr,
-              allDay: selectInfo.allDay,
-            });
-            try {
-              await fetch("/senddata", {
-                method: "POST",
-                headers: {
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  username: user,
-                  title: title,
-                  start: selectInfo.startStr,
-                  end: selectInfo.endStr,
-                  allDay: selectInfo.allDay,
-                }),
+            if (title !== null && title != "") {
+              calendar.addEvent({
+                title: title,
+                start: selectInfo.startStr,
+                end: selectInfo.endStr,
+                allDay: selectInfo.allDay,
               });
-              console.log("done");
-            } catch (err) {
-              console.log("error");
+              try {
+                await fetch("/senddata", {
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    username: user,
+                    title: title,
+                    start: selectInfo.startStr,
+                    end: selectInfo.endStr,
+                    allDay: selectInfo.allDay,
+                  }),
+                });
+                console.log("done");
+              } catch (err) {
+                console.log("error");
+              }
             }
           }}
           defaultView="timeGridWeek"

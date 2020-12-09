@@ -1,3 +1,18 @@
 .cal {
   background-color: white;
 }
+.fc .fc-button:not(:disabled) {
+  background-color: #42692d;
+  cursor: pointer;
+}
+
+.fc-v-event .fc-event-time {
+  color: white;
+}
+.fc-v-event .fc-event-title {
+  color: white;
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: black;
+}
