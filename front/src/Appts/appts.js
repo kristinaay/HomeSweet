@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/appts.css";
+import "./appts.css";
 import { ButtonGroup, DropdownButton, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
@@ -126,10 +126,9 @@ function Appts() {
   };
 
   return (
-    <div>
+    <div className="cal-cont">
       {renderNav(loggedIn)}{" "}
-      <div className="cal">
-        <div>{console.log("inside", events)}</div>
+      <div className="cal" tabindex="0" role="main">
         <FullCalendar
           plugins={[interactionPlugin, dayGridPlugin, timeGridPlugin]}
           initialView="timeGridWeek"
@@ -204,6 +203,7 @@ function Appts() {
             minute: "2-digit",
             meridiem: false,
           }}
+          tabindex="0"
         />
       </div>
     </div>

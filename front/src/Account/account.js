@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/account.css";
+import "./account.css";
 import { ButtonGroup, DropdownButton, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
@@ -83,12 +83,12 @@ function Account() {
   return (
     <div>
       {renderNav(loggedIn)}
-      <section id="section1">
+      <section id="section1" role="main">
         <div className="account">
           <div className="container-fluid d-flex justify-content-center">
             <div className="acccard">
               <div className="card-header" id="my-acc-header">
-                <h3>My Account</h3>
+                <h2 className="sign-heading">My Account</h2>
               </div>
               <div className="card-body" id="my-acc-body">
                 <form action="/updateuser" method="POST" className="form-1">
@@ -122,7 +122,7 @@ function Account() {
                 </form>
                 <form action="/updatepass" method="POST" className="form-1">
                   <div className="form-group-1">
-                    <label htmlFor="username">Username</label>
+                    <label htmlFor="username-1">Username</label>
                     <input
                       type="text"
                       id="username-1"

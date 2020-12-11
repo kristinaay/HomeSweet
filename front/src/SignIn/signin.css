@@ -5,6 +5,10 @@ body {
   padding: 0px;
 }
 
+.sign-heading {
+  font-size: 22px;
+}
+
 .navbar {
   font-family: "Montserrat", sans-serif;
   position: relative;

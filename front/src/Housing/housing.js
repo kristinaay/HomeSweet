@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
-import "../styles/housing.css";
+import "./housing.css";
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { Container, Row, Col } from "reactstrap";
@@ -146,22 +146,41 @@ function Housing(props) {
           <Link to="/" className="logo-container">
             <h1 className="logo-header">HOMESWEET</h1>
           </Link>
-          <ButtonGroup className="dropdown-menu-1">
+          <ButtonGroup className="dropdown-menu-1" title="DropdownButton">
             <DropdownButton
               id="dropdown-btn-menu"
-              title=<i className="navbar-toggler-icon" />
+              title=<i
+                className="navbar-toggler-icon"
+                haspopup="true"
+                expanded="false"
+                label="dropdownMenu"
+                aria-label="searchBox"
+              />
             >
               <Link to="/appointments">
-                <Button key="1" className="menu-btn">
+                <Button
+                  key="1"
+                  className="menu-btn"
+                  aria-label="ButtonToAppointments"
+                >
                   My Appointments
                 </Button>
               </Link>
               <Link to="/account">
-                <Button key="2" className="menu-btn">
+                <Button
+                  key="2"
+                  className="menu-btn"
+                  aria-label="ButtonToAccount"
+                >
                   My Account
                 </Button>
               </Link>
-              <form className="form" action="/signout" method="post">
+              <form
+                className="form"
+                action="/signout"
+                method="post"
+                aria-label="SignOutButton"
+              >
                 <Button key="3" className="menu-btn" type="submit">
                   Sign Out
                 </Button>
@@ -223,7 +242,7 @@ function Housing(props) {
       <div>
         <Modal isOpen={showModal}>
           <div className="modal-header">
-            <button onClick={closeModal} className="close-btn">
+            <button onClick={closeModal} className="close-btn" tab-index="0">
               X
             </button>
             <h2 className="modal-header-2">{p[3]}</h2>
@@ -264,12 +283,15 @@ function Housing(props) {
               <Col md="4">
                 <div className="container-card">
                   {" "}
-                  <h4 className="card-header-1">{p["result-title"]}</h4>
+                  <b>
+                    <div className="card-header-1">{p["result-title"]}</div>
+                  </b>
                   {getHov(index) && (
                     <div
                       className="moreinfo"
                       onMouseLeave={() => changeHovered(index, false)}
                       onMouseOver={() => changeHovered(index, true)}
+                      tabindex="0"
                     >
                       <Button className="click" onClick={() => clickedInfo(p)}>
                         Click for more info!{" "}
@@ -279,8 +301,7 @@ function Housing(props) {
                   {!getHov(index) && (
                     <div className="whole-card">
                       <div
-                        className="card-body"
-                        id="card-body-1"
+                        className="card-body-1"
                         onMouseLeave={() => changeHovered(index, false)}
                         onMouseOver={() => changeHovered(index, true)}
                       >
@@ -389,7 +410,7 @@ function Housing(props) {
     <div>
       {renderNav(loggedIn)}
 
-      <div className="house-full">
+      <div className="house-full" role="main">
         <div className="inner">
           <div className="filters">
             <div className="search" id="search-2">
@@ -398,13 +419,18 @@ function Housing(props) {
                 className="searchTerm"
                 ref={textInput}
                 placeholder="Search by neighborhood..."
+                aria-label="searchBox"
               />
               <button
                 type="submit"
                 className="searchButton"
                 onClick={handleClick}
               >
-                <i className="fa fa-search" aria-hidden="true"></i>
+                <i
+                  className="fa fa-search"
+                  aria-hidden="true"
+                  aria-label="searchButton"
+                ></i>
               </button>
               <ButtonGroup className="dropdown">
                 <DropdownButton title="Sort By:" id="dropdown-btn">
@@ -426,9 +452,7 @@ function Housing(props) {
         </div>
       </div>
 
-      <footer className="other-footer">
-        Image by @bradencollum on Unsplash.
-      </footer>
+      <footer className="other-footer"></footer>
     </div>
   );
 }

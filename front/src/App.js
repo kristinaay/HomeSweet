@@ -1,9 +1,9 @@
-import Home from "./components/home.js";
-import Signup from "./components/signup.js";
-import Signin from "./components/signin.js";
-import Housing from "./components/housing.js";
-import Appts from "./components/appts.js";
-import Account from "./components/account.js";
+import Home from "./Home/home.js";
+import Signup from "./SignUp/signup.js";
+import Signin from "./SignIn/signin.js";
+import Housing from "./Housing/housing.js";
+import Appts from "./Appts/appts.js";
+import Account from "./Account/account.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {

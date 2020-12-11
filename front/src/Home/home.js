@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/home.css";
+import "./home.css";
 import { useState } from "react";
 import { useHistory } from "react-router";
 
@@ -33,12 +33,13 @@ function Home() {
           Sign Up
         </Link>
       </div>
-      <section id="section1">
+      <section id="section1" role="main">
         <h2 className="discover">Rediscover Home</h2>
         <div className="subtitle">Find your perfect San Francisco housing.</div>
         <div className="search-container">
           <div className="search">
             <input
+              aria-label="searchBox"
               type="text"
               className="searchTerm"
               ref={textInput}
@@ -46,6 +47,7 @@ function Home() {
             />
 
             <button
+              aria-label="searchButton"
               type="submit"
               className="searchButton"
               onClick={handleClick}

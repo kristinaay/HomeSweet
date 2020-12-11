@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/signup.css";
+import "./signup.css";
 
 function SignUp() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -18,12 +18,12 @@ function SignUp() {
           Sign Up
         </Link>
       </div>
-      <section id="section1">
+      <section id="section1" role="main">
         <div className="SignUp">
           <div className="container-fluid d-flex justify-content-center">
             <div className="signcard">
               <div className="card-header">
-                <h3>Welcome to HomeSweet!</h3>
+                <h2 className="sign-heading">Welcome to HomeSweet!</h2>
                 <div>Sign up here.</div>
               </div>
               <div className="card-body">
