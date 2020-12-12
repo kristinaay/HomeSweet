@@ -106,6 +106,58 @@ function Appts() {
             <input type="submit" value="Add Event" className="add-event-btn" />
           </div>
         </form>
+
+        <h2 className="header-appt"> Delete an appointment: </h2>
+        <form action="/deletedata" method="POST" className="form-events">
+          <div className="form-group-appt">
+            <label htmlFor="username">Username: </label>
+            <input
+              type="text"
+              id="appt-username-2"
+              name="username"
+              className="form-control"
+              placeholder="Your username"
+            />
+          </div>
+          <div className="form-group-appt">
+            <label htmlFor="title">Event Title: </label>
+            <input
+              type="text"
+              id="title-2"
+              name="title"
+              className="form-control"
+              placeholder="Name your event"
+            />
+          </div>
+          <div className="form-group-appt">
+            <label htmlFor="startdate">Start Date and Time: </label>
+            <input
+              type="text"
+              id="startdate-2"
+              name="startdate"
+              className="form-control"
+              placeholder="Use the format YYYY-MM-DD HH:MM"
+            />
+          </div>
+          <div className="form-group-appt">
+            <label htmlFor="enddate">End Date and Time: </label>
+            <input
+              type="text"
+              id="enddate-2"
+              name="enddate"
+              className="form-control"
+              placeholder="Use the format YYYY-MM-DD HH:MM"
+            />
+          </div>
+
+          <div className="form-group-appt-2">
+            <input
+              type="submit"
+              value="Delete Event"
+              className="add-event-btn"
+            />
+          </div>
+        </form>
       </div>
       <div className="cal" tabindex="0" role="main">
         <FullCalendar
