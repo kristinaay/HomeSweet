@@ -74,7 +74,24 @@ function MyDB() {
       { username: username },
       {
         $pull: {
-          eventsarr: { title: title, start: start, end: end, allday: allday },
+          eventsarr: {
+            title: title,
+            start: start.replace("T", " ").slice(0, 16),
+            end: end.replace("T", " ").slice(0, 16),
+          },
+        },
+      }
+    );
+    events1.updateOne(
+      { username: username },
+      {
+        $pull: {
+          eventsarr: {
+            title: title,
+            start: start,
+            end: end,
+            allday: allday,
+          },
         },
       }
     );
