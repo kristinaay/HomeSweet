@@ -233,7 +233,9 @@ function Saved() {
         notes: notes,
       }),
     });
-    setChanged(!change);
+
+    closeModal();
+    await setChanged(!change);
   };
 
   const renderSavedPosts = (posts, loading) => {
