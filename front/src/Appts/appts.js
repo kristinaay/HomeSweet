@@ -58,6 +58,51 @@ function Appts() {
       <h1 className="pg-heading" id="appt-heading">
         Appointments
       </h1>
+      <form action="/senddata2" method="POST" className="form-events">
+        <div className="form-group-appt">
+          <label htmlFor="username">Username: </label>
+          <input
+            type="text"
+            id="appt-username"
+            name="username"
+            className="form-control"
+            placeholder="Your username"
+          />
+        </div>
+        <div className="form-group-appt">
+          <label htmlFor="title">Event Title: </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            className="form-control"
+            placeholder="Name your event"
+          />
+        </div>
+        <div className="form-group-appt">
+          <label htmlFor="startdate">Start Date and Time: </label>
+          <input
+            type="text"
+            id="startdate"
+            name="startdate"
+            className="form-control"
+            placeholder="Use the format YYYY-MM-DD HH:MM"
+          />
+        </div>
+        <div className="form-group-appt">
+          <label htmlFor="enddate">End Date and Time: </label>
+          <input
+            type="text"
+            id="enddate"
+            name="enddate"
+            className="form-control"
+            placeholder="Use the format YYYY-MM-DD HH:MM"
+          />
+        </div>
+        <div className="form-group-appt-2">
+          <input type="submit" value="Add Event" className="add-event-btn" />
+        </div>
+      </form>
       <div className="cal" tabindex="0" role="main">
         <FullCalendar
           plugins={[interactionPlugin, dayGridPlugin, timeGridPlugin]}

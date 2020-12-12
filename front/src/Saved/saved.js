@@ -183,7 +183,7 @@ function Saved() {
   const renderSavedPosts = (posts, loading) => {
     if (loading) {
       return <h2>Loading...</h2>;
-    } else if (`${posts}` === null) {
+    } else if (`${posts}` === null || `${posts}` === "") {
       return (
         <h2>
           No posts saved yet! Browse "All Housing" to find your favorites.
@@ -311,6 +311,7 @@ function Saved() {
           currentPage
         )}
       </section>
+      <footer className="other-footer"></footer>
     </div>
   );
 }
