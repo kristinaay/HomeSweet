@@ -6,6 +6,19 @@
   width: 680px;
 }
 
+.card-header {
+  margin-left: 0 auto;
+  margin-right: 0 auto;
+  text-align: center;
+  height: 60px;
+  text-transform: uppercase;
+  font-family: "Old Standard TT", serif;
+}
+
+.sign-heading {
+  font-size: 30px;
+}
+
 .acccard {
   margin-left: 0;
   margin-right: 0;

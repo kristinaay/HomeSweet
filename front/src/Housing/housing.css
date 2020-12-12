@@ -19,6 +19,7 @@ body {
 
 .modal-body {
   padding: 30px;
+  overflow-x: hidden;
 }
 
 Modal {
@@ -29,11 +30,12 @@ Modal {
   margin-left: 10px;
   width: 35px;
   height: 35px;
-  background-color: #d8e6d5;
+  background-color: white;
 }
 
 .close-btn:hover {
-  background-color: #c4cfc2;
+  background-color: #8fa995;
+  color: white;
 }
 
 .heart:focus {

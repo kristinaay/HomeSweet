@@ -22,8 +22,10 @@ function SignIn() {
         <div className="SignIn">
           <div className="container-fluid d-flex justify-content-center">
             <div className="signcard">
-              <div className="card-header">
-                <h1 className="sign-heading">Welcome to HomeSweet!</h1>
+              <div className="card-header" id="header-signin">
+                <h1 className="sign-heading" id="heading-signin">
+                  Welcome to HomeSweet!
+                </h1>
                 <div className="subtitle2">Sign in here.</div>
               </div>
               <div className="card-body">
@@ -59,19 +61,6 @@ function SignIn() {
                       id="signinbtn"
                     />
                   </div>
-                </form>
-                <div>Or connect with Google: </div>
-                <form action="/auth/google" method="post">
-                  <button id="google-btn" type="submit" method="POST">
-                    <img
-                      src="./images/google.png"
-                      id="google-logo"
-                      alt="google logo"
-                      width="50"
-                      height="50"
-                    />
-                    Sign in with Google
-                  </button>
                 </form>
               </div>
             </div>

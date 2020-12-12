@@ -42,22 +42,7 @@ Passport.serializeUser((user, done) => {
 Passport.deserializeUser((id, done) => {
   done(null, { id });
 });
-Passport.use(
-  new GoogleStrategy(
-    {
-      clientID:
-        "892822075789-7b9seutssna9gnlvb8jvf35jdbnmk9is.apps.googleusercontent.com",
-      clientSecret: "C6M4OrcnErK5vqgS4PUHjnIS",
 
-      callbackURL: "http://localhost:3001/auth/google/callback",
-    },
-    function (accessToken, refreshToken, profile, done) {
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return done(null, profile);
-      });
-    }
-  )
-);
 Passport.use(
   new Strategy(
     { passReqToCallback: true },
@@ -143,19 +128,6 @@ const isLoggedIn = (req, res, next) => {
     res.send(false);
   }
 };
-
-router.post(
-  "/auth/google",
-  Passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
-router.post(
-  "/auth/google/callback",
-  Passport.authenticate("google", {
-    successRedirect: "/housing",
-    failureRedirect: "/signin?error=Error signing in with Google.",
-  })
-);
 
 router.post("/failed", (req, res) =>
   res.send("signup/?error=Error signing in with Google.")

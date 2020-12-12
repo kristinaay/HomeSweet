@@ -9,6 +9,19 @@ body {
   font-size: 22px;
 }
 
+#header-signin {
+  margin-left: 0 auto;
+  margin-right: 0 auto;
+  text-align: center;
+  height: 80px;
+  text-transform: uppercase;
+  font-family: "Old Standard TT", serif;
+}
+
+#heading-signin {
+  font-size: 16px;
+}
+
 .navbar {
   font-family: "Montserrat", sans-serif;
   position: relative;
@@ -99,22 +112,4 @@ footer {
 
 .form-group {
   color: black;
-}
-#google-btn {
-  background-color: white;
-  width: 260px;
-  height: 40px;
-  align-content: center;
-  margin-top: 10px;
-  border-radius: 5px;
-}
-#google-logo {
-  height: 25px;
-  width: 25px;
-}
-
-#google-btn:hover {
-  background-color: #4471b8;
-  color: white;
-  border-color: white;
 }

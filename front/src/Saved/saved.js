@@ -183,12 +183,7 @@ function Saved() {
   const renderSavedPosts = (posts, loading) => {
     if (loading) {
       return <h2>Loading...</h2>;
-    } else if (
-      `${posts}` === null ||
-      `${posts}` === "" ||
-      `${posts}` === [] ||
-      `${posts}` === undefined
-    ) {
+    } else if (`${posts}` === null) {
       return (
         <h2>
           No posts saved yet! Browse "All Housing" to find your favorites.
