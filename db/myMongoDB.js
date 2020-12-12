@@ -192,6 +192,51 @@ function MyDB() {
       }
     );
   };
+
+  myDB.updateSavedInDB = async (
+    username,
+    title,
+    price,
+    housinginfo,
+    hood,
+    date,
+    body,
+    address,
+    images,
+    notes
+  ) => {
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+
+    const db = client.db("db2");
+
+    const saved = db.collection("saved");
+    await saved.updateOne(
+      { username: username },
+      {
+        $pull: {
+          savedarr: { title: title },
+        },
+      }
+    );
+    saved.insertOne({
+      username: username,
+      savedarr: [
+        {
+          title: title,
+          price: price,
+          housinginfo: housinginfo,
+          hood: hood,
+          date: date,
+          body: body,
+          address: address,
+          images: images,
+          notes: notes,
+        },
+      ],
+    });
+  };
+
   myDB.initializeUsers = async () => {
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     await client.connect();

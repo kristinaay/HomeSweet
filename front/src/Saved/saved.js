@@ -202,6 +202,41 @@ function Saved() {
     }
   };
 
+  const updatePost = async (
+    username,
+    title,
+    price,
+    housinginfo,
+    hood,
+    date,
+    body,
+    address,
+    images
+  ) => {
+    let notes = window.prompt("Add Notes to this Post: ");
+
+    await fetch("/updatehousing", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        title: title,
+        price: price,
+        housinginfo: housinginfo,
+        hood: hood,
+        date: date,
+        body: body,
+        address: address,
+        images: images,
+        notes: notes,
+      }),
+    });
+    setChanged(!change);
+  };
+
   const renderSavedPosts = (posts, loading) => {
     if (loading) {
       return <h2>Loading...</h2>;
@@ -219,6 +254,19 @@ function Saved() {
               <div className="buttons-post">
                 <button className="heart" tab-index="0">
                   <img
+                    onClick={() => {
+                      updatePost(
+                        user,
+                        p[0],
+                        p[1],
+                        p[2],
+                        p[3],
+                        p[4],
+                        p[5],
+                        p[6],
+                        p[7]
+                      );
+                    }}
                     src={"./images/edit.png"}
                     alt="pen button to edit the post"
                   />
@@ -258,10 +306,10 @@ function Saved() {
                 <b>Map Address:</b> {p[6]}
               </div>
               <div>
-                <b>Date posted:</b> {p[4]}
+                <b>Date Posted:</b> {p[4]}
               </div>
               <div>
-                <b>Housing information:</b> {p[2]}
+                <b>Housing Information:</b> {p[2]}
               </div>
               <div>
                 <b>About:</b>
@@ -269,7 +317,14 @@ function Saved() {
                   .replaceAll("&amp;", "and")
                   .replace(/<[^>]*>?/gm, "")
                   .replace("QR Code Link to This Post", "")}
-              </div>{" "}
+              </div>
+              <br />
+              <div>
+                <b>Your Notes:</b>
+                {p[8]
+                  ? p[8]
+                  : " None yet. Click the pen icon in the top right corner to annotate this post!"}
+              </div>
             </div>
 
             <div className="modal-img">{renderImg()}</div>

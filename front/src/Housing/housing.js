@@ -380,10 +380,10 @@ function Housing(props) {
               <b>Map Address:</b> {p[13]}
             </div>
             <div>
-              <b>Date posted:</b> {p[8]}
+              <b>Date Posted:</b> {p[8]}
             </div>
             <div>
-              <b>Housing information:</b> {p[5]}
+              <b>Housing Information:</b> {p[5]}
             </div>
             <div>
               <b>About:</b>

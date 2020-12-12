@@ -186,6 +186,23 @@ router.post("/deletehousing", async (req, res) => {
   await myDB.deleteSavedFromDB(req.body.username, req.body.title);
   return res.json();
 });
+
+router.post("/updatehousing", async (req, res) => {
+  const info = req.body;
+  await myDB.updateSavedInDB(
+    info.username,
+    info.title,
+    info.price,
+    info.housinginfo,
+    info.hood,
+    info.date,
+    info.body,
+    info.address,
+    info.images,
+    info.notes
+  );
+  return res.json();
+});
 router.post("/senddata", async (req, res) => {
   const info = req.body;
   const data = await myDB.addToDB(
@@ -222,6 +239,7 @@ router.post("/deletedata", async (req, res) => {
   );
   res.json(data);
 });
+
 router.post("/signout", (req, res, next) => {
   req.session.destroy();
   res.redirect("/");
