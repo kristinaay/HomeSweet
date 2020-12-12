@@ -263,22 +263,6 @@ function MyDB() {
       saved.updateOne({ username: username }, update);
     });
   };
-  // saved.insertOne({
-  //   username: username,
-  //   savedarr: [
-  //     {
-  //       title: title,
-  //       price: price,
-  //       housinginfo: housinginfo,
-  //       hood: hood,
-  //       date: date,
-  //       body: body,
-  //       address: address,
-  //       images: images,
-  //       notes: notes,
-  //     },
-  //   ],
-  //});
 
   myDB.initializeUsers = async () => {
     const client = new MongoClient(uri, { useUnifiedTopology: true });

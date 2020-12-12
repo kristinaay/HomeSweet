@@ -108,7 +108,7 @@ function Appts() {
         </form>
 
         <h2 className="header-appt"> Delete an appointment: </h2>
-        <form action="/deletedata" method="POST" className="form-events">
+        <form action="/deletedata2" method="POST" className="form-events">
           <div className="form-group-appt">
             <label htmlFor="username">Username: </label>
             <input
@@ -126,25 +126,25 @@ function Appts() {
               id="title-2"
               name="title"
               className="form-control"
-              placeholder="Name your event"
+              placeholder="Event to be deleted"
             />
           </div>
           <div className="form-group-appt">
-            <label htmlFor="startdate">Start Date and Time: </label>
+            <label htmlFor="start">Start Date and Time: </label>
             <input
               type="text"
               id="startdate-2"
-              name="startdate"
+              name="start"
               className="form-control"
               placeholder="Use the format YYYY-MM-DD HH:MM"
             />
           </div>
           <div className="form-group-appt">
-            <label htmlFor="enddate">End Date and Time: </label>
+            <label htmlFor="end">End Date and Time: </label>
             <input
               type="text"
               id="enddate-2"
-              name="enddate"
+              name="end"
               className="form-control"
               placeholder="Use the format YYYY-MM-DD HH:MM"
             />

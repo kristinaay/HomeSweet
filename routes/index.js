@@ -240,6 +240,19 @@ router.post("/deletedata", async (req, res) => {
   res.json(data);
 });
 
+router.post("/deletedata2", async (req, res) => {
+  const info = req.body;
+  console.log(req.body);
+  const data = await myDB.deleteFromDB(
+    info.username,
+    info.title,
+    info.start,
+    info.end,
+    false
+  );
+  res.redirect("/appointments");
+});
+
 router.post("/signout", (req, res, next) => {
   req.session.destroy();
   res.redirect("/");
