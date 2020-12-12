@@ -232,6 +232,10 @@ footer {
   font-family: "Bebas Neue", cursive;
 }
 
+.moreinfo:hover {
+  max-height: 300px;
+}
+
 .Container {
   width: 100%;
 }

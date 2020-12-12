@@ -15,6 +15,7 @@ function Saved() {
   const [indexPost, setIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(12);
+  const [change, setChanged] = useState(false);
   const getModal = () => {
     return showModal;
   };
@@ -74,7 +75,7 @@ function Saved() {
       setLoading(false);
     };
     getSavedPosts();
-  }, [user]);
+  }, [user, change]);
 
   useEffect(() => {
     const getCurrPosts = async () => {
@@ -180,6 +181,27 @@ function Saved() {
     }
   };
 
+  const deletePost = async (username, title) => {
+    let bool = window.confirm(
+      "Are you sure you want to remove this post from favorites?"
+    );
+    if (bool) {
+      await fetch("/deletehousing", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          title: title,
+        }),
+      });
+      setChanged(!change);
+      closeModal();
+    }
+  };
+
   const renderSavedPosts = (posts, loading) => {
     if (loading) {
       return <h2>Loading...</h2>;
@@ -195,6 +217,24 @@ function Saved() {
           <Modal isOpen={showModal}>
             <div className="modal-header">
               <div className="buttons-post">
+                <button className="heart" tab-index="0">
+                  <img
+                    src={"./images/edit.png"}
+                    alt="pen button to edit the post"
+                  />
+                </button>
+                <button
+                  onClick={() => {
+                    deletePost(user, p[0]);
+                  }}
+                  className="heart"
+                  tab-index="0"
+                >
+                  <img
+                    src={"./images/delete.png"}
+                    alt="trash button to delete the post"
+                  />
+                </button>
                 <button
                   onClick={closeModal}
                   className="close-btn"
