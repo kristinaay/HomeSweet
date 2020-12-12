@@ -11,3 +11,7 @@ h2 {
   margin-bottom: 50px;
   font-size: 30px;
 }
+
+#saved {
+  min-height: 90vh;
+}
