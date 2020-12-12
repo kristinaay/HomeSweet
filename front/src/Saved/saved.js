@@ -214,7 +214,6 @@ function Saved() {
     images
   ) => {
     let notes = window.prompt("Add Notes to this Post: ");
-
     await fetch("/updatehousing", {
       method: "POST",
       headers: {
@@ -320,7 +319,7 @@ function Saved() {
               </div>
               <br />
               <div>
-                <b>Your Notes:</b>
+                <b>Your Notes: </b>
                 {p[8]
                   ? p[8]
                   : " None yet. Click the pen icon in the top right corner to annotate this post!"}

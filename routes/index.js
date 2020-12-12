@@ -189,6 +189,7 @@ router.post("/deletehousing", async (req, res) => {
 
 router.post("/updatehousing", async (req, res) => {
   const info = req.body;
+  console.log(info.notes);
   await myDB.updateSavedInDB(
     info.username,
     info.title,

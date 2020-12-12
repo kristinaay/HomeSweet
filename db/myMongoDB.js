@@ -211,7 +211,7 @@ function MyDB() {
     const db = client.db("db2");
 
     const saved = db.collection("saved");
-    await saved.updateOne(
+    saved.updateOne(
       { username: username },
       {
         $pull: {
@@ -219,23 +219,49 @@ function MyDB() {
         },
       }
     );
-    saved.insertOne({
-      username: username,
-      savedarr: [
-        {
-          title: title,
-          price: price,
-          housinginfo: housinginfo,
-          hood: hood,
-          date: date,
-          body: body,
-          address: address,
-          images: images,
-          notes: notes,
-        },
-      ],
+    saved.findOne({ username: username }, function (err, user) {
+      if (err) {
+        return next(err);
+      }
+
+      let update = "";
+      if (user) {
+        update = {
+          $push: {
+            savedarr: {
+              title: title,
+              price: price,
+              housinginfo: housinginfo,
+              hood: hood,
+              date: date,
+              body: body,
+              address: address,
+              images: images,
+              notes: notes,
+            },
+          },
+        };
+      }
+
+      saved.updateOne({ username: username }, update);
     });
   };
+  // saved.insertOne({
+  //   username: username,
+  //   savedarr: [
+  //     {
+  //       title: title,
+  //       price: price,
+  //       housinginfo: housinginfo,
+  //       hood: hood,
+  //       date: date,
+  //       body: body,
+  //       address: address,
+  //       images: images,
+  //       notes: notes,
+  //     },
+  //   ],
+  //});
 
   myDB.initializeUsers = async () => {
     const client = new MongoClient(uri, { useUnifiedTopology: true });
