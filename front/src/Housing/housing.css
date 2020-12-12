@@ -14,6 +14,7 @@ body {
   display: inline-block;
   width: 100%;
   margin-top: 0;
+  font-family: "Archivo Black", sans-serif;
 }
 
 .modal-body {
@@ -25,9 +26,28 @@ Modal {
 }
 
 .close-btn {
+  margin-left: 10px;
+  width: 35px;
+  height: 35px;
+  background-color: #d8e6d5;
+}
+
+.close-btn:hover {
+  background-color: #c4cfc2;
+}
+
+.heart:focus {
+  outline: none;
+}
+.heart {
+  margin-right: 10px;
+  border: none;
+  background-color: white;
+  padding-top: 0px;
+}
+
+.buttons-post {
   float: right;
-  width: 30px;
-  height: 30px;
 }
 
 #cont {
@@ -160,6 +180,7 @@ footer {
   font-size: 30px;
   border: none;
   outline: none;
+  min-width: 325px;
   width: 325px;
   height: 325px;
 }
@@ -168,6 +189,7 @@ footer {
   border: 1px;
   background: rgb(143, 169, 149);
   background: rgba(143, 169, 149, 0.85);
+  min-width: 325px;
   border-style: solid;
   border-color: white;
 }
@@ -187,6 +209,7 @@ footer {
   margin-right: 0;
   margin: 10px;
   height: 400px;
+  min-width: 325px;
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -199,6 +222,7 @@ footer {
   margin-right: 0;
   margin: 5px;
   height: 325px;
+  min-width: 325px;
   overflow: hidden;
   background: rgb(143, 169, 149);
   color: white;
@@ -223,18 +247,21 @@ footer {
   align-items: center;
   margin-left: 0;
   margin-right: 0;
-  font-size: 17px;
+  font-size: 15px;
   padding-top: 15px;
   padding-left: 15px;
+  min-width: 325px;
   background: rgb(255, 255, 255);
   background: rgba(255, 255, 255, 0.85);
   padding-right: 15px;
   height: 100px;
+  font-family: "Archivo Black", sans-serif;
 }
 
 .whole-card {
   background: rgb(255, 255, 255);
   background: rgba(255, 255, 255, 0.85);
+  min-width: 325px;
 }
 #card-body-1 {
   align-items: center;
@@ -243,6 +270,7 @@ footer {
   padding: 0;
   background: rgb(255, 255, 255);
   background: rgba(255, 255, 255, 0);
+  min-width: 325px;
 }
 
 .housing-img {

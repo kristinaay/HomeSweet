@@ -4,6 +4,7 @@ import Signin from "./SignIn/signin.js";
 import Housing from "./Housing/housing.js";
 import Appts from "./Appts/appts.js";
 import Account from "./Account/account.js";
+import Saved from "./Saved/saved.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path="/housing" component={Housing} />
             <Route path="/appointments" component={Appts} />
             <Route path="/account" component={Account} />
+            <Route path="/saved" component={Saved} />
           </Switch>
         </Router>
       </div>

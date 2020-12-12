@@ -175,17 +175,45 @@ router.get("/getlog", async (req, res) => {
 });
 
 router.get("/getposts", async (req, res) => {
-  console.log("getting posts");
   const posts = await myDB.getPosts();
   res.json(posts);
 });
 
 router.post("/getevents", async (req, res) => {
   const events = await myDB.getEvents(req.body.username);
-  console.log("index", events);
   res.json(events);
 });
 
+router.post("/getsavedhearts", async (req, res) => {
+  const rtn = await myDB.getSavedHearts(req.body.username);
+  return rtn;
+});
+
+router.post("/getsavedposts", async (req, res) => {
+  const rtn = await myDB.getSaved(req.body.username);
+  res.json(rtn);
+});
+
+router.post("/savehousing", async (req, res) => {
+  const info = req.body;
+  await myDB.addSavedToDB(
+    info.username,
+    info.title,
+    info.price,
+    info.housinginfo,
+    info.hood,
+    info.date,
+    info.body,
+    info.address,
+    info.images
+  );
+  return res.json();
+});
+
+router.post("/deletehousing", async (req, res) => {
+  await myDB.deleteSavedFromDB(req.body.username, req.body.title);
+  return res.json();
+});
 router.post("/senddata", async (req, res) => {
   const info = req.body;
   const data = await myDB.addToDB(

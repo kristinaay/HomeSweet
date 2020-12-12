@@ -1,94 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./account.css";
-import { ButtonGroup, DropdownButton, Button } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import Navigation from "../components/navigation.js";
 
 function Account() {
-  const [loggedIn, setLoggedIn] = useState(false);
   const urlParams = new URLSearchParams(window.location.search);
   const error = urlParams.get("error");
   const msg = urlParams.get("msg");
 
-  useEffect(() => {
-    const getLoggedIn = async () => {
-      try {
-        const _loggedin = await fetch("/getlog", {
-          method: "GET",
-          credentials: "include",
-        }).then((res) => res.json());
-        setLoggedIn(_loggedin);
-        console.log("logged in: ", _loggedin);
-      } catch (err) {
-        console.log("error");
-      }
-    };
-    getLoggedIn();
-  }, []);
-
-  const renderNav = (loggedIn) => {
-    if (!loggedIn) {
-      return (
-        <div
-          className="navbar navbar-expand-lg navbar-light bg-light justify-content-end"
-          role="navigation"
-        >
-          <Link to="/" className="logo-container">
-            <h1 className="logo-header">HOMESWEET</h1>
-          </Link>
-          <Link to="/signin" className="nav-links">
-            Sign In
-          </Link>
-          <Link to="/signup" className="nav-links">
-            Sign Up
-          </Link>
-        </div>
-      );
-    } else {
-      return (
-        <div
-          className="navbar navbar-expand-lg navbar-light bg-light justify-content-end"
-          role="navigation"
-        >
-          <Link to="/" className="logo-container">
-            <h1 className="logo-header">HOMESWEET</h1>
-          </Link>
-          <ButtonGroup className="dropdown-menu-1">
-            <DropdownButton
-              id="dropdown-btn-menu"
-              title=<i className="navbar-toggler-icon" />
-            >
-              <Link to="/housing">
-                <Button key="1" className="menu-btn">
-                  See All Housing
-                </Button>
-              </Link>
-
-              <Link to="/appointments">
-                <Button key="1" className="menu-btn">
-                  My Appointments
-                </Button>
-              </Link>
-              <form className="form" action="/signout" method="post">
-                <Button key="3" className="menu-btn" type="submit">
-                  Sign Out
-                </Button>
-              </form>
-            </DropdownButton>
-          </ButtonGroup>
-        </div>
-      );
-    }
-  };
   return (
     <div>
-      {renderNav(loggedIn)}
+      <Navigation></Navigation>
       <section id="section1" role="main">
         <div className="account">
           <div className="container-fluid d-flex justify-content-center">
             <div className="acccard">
               <div className="card-header" id="my-acc-header">
-                <h2 className="sign-heading">My Account</h2>
+                <h1 className="sign-heading">My Account</h1>
               </div>
               <div className="card-body" id="my-acc-body">
                 <form action="/updateuser" method="POST" className="form-1">
@@ -96,7 +23,7 @@ function Account() {
                     <label htmlFor="username">Current Username</label>
                     <input
                       type="text"
-                      id="username"
+                      id="username-acc"
                       name="username"
                       className="form-control"
                       placeholder="Enter current username"
@@ -106,7 +33,7 @@ function Account() {
                     <label htmlFor="newusername">New Username</label>
                     <input
                       type="text"
-                      id="newusername"
+                      id="newusername-acc"
                       name="newusername"
                       className="form-control"
                       placeholder="Enter new username"
@@ -125,7 +52,7 @@ function Account() {
                     <label htmlFor="username-1">Username</label>
                     <input
                       type="text"
-                      id="username-1"
+                      id="username-acc-2"
                       name="username"
                       className="form-control"
                       placeholder="Enter current username"
@@ -135,7 +62,7 @@ function Account() {
                     <label htmlFor="newpassword">New Password</label>
                     <input
                       type="password"
-                      id="newpassword"
+                      id="newpassword-acc"
                       name="newpassword"
                       className="form-control"
                       placeholder="Enter new password"

@@ -17,6 +17,12 @@ body {
   background-color: white;
 }
 
+.subtitle2 {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+}
+
 .nav-links {
   justify-self: flex-end;
   margin: 10px;

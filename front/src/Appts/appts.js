@@ -1,17 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./appts.css";
-import { ButtonGroup, DropdownButton, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import Navigation from "../components/navigation.js";
 
 function Appts() {
-  const [loggedIn, setLoggedIn] = useState(false);
   const [events, setEvents] = useState([]);
   const [user, setUser] = useState("");
 
@@ -20,22 +17,6 @@ function Appts() {
     if (storedUser) {
       setUser(storedUser);
     }
-  }, []);
-
-  useEffect(() => {
-    const getLoggedIn = async () => {
-      try {
-        const _loggedin = await fetch("/getlog", {
-          method: "GET",
-          credentials: "include",
-        }).then((res) => res.json());
-        setLoggedIn(_loggedin);
-        console.log("logged in: ", _loggedin);
-      } catch (err) {
-        console.log("error");
-      }
-    };
-    getLoggedIn();
   }, []);
 
   useEffect(() => {
@@ -63,60 +44,6 @@ function Appts() {
     getEventData();
   }, [user]);
 
-  const renderNav = (loggedIn) => {
-    if (!loggedIn) {
-      return (
-        <div
-          className="navbar navbar-expand-lg navbar-light bg-light justify-content-end"
-          role="navigation"
-        >
-          <Link to="/" className="logo-container">
-            <h1 className="logo-header">HOMESWEET</h1>
-          </Link>
-          <Link to="/signin" className="nav-links">
-            Sign In
-          </Link>
-          <Link to="/signup" className="nav-links">
-            Sign Up
-          </Link>
-        </div>
-      );
-    } else {
-      return (
-        <div
-          className="navbar navbar-expand-lg navbar-light bg-light justify-content-end"
-          role="navigation"
-        >
-          <Link to="/" className="logo-container">
-            <h1 className="logo-header">HOMESWEET</h1>
-          </Link>
-          <ButtonGroup className="dropdown-menu-1">
-            <DropdownButton
-              id="dropdown-btn-menu"
-              title=<i className="navbar-toggler-icon" />
-            >
-              <Link to="/housing">
-                <Button key="1" className="menu-btn">
-                  See All Housing
-                </Button>
-              </Link>
-              <Link to="/account">
-                <Button key="2" className="menu-btn">
-                  My Account
-                </Button>
-              </Link>
-              <form className="form" action="/signout" method="post">
-                <Button key="3" className="menu-btn" type="submit">
-                  Sign Out
-                </Button>
-              </form>
-            </DropdownButton>
-          </ButtonGroup>
-        </div>
-      );
-    }
-  };
-
   const getEvents = () => {
     let rtn =
       events !== null
@@ -127,7 +54,10 @@ function Appts() {
 
   return (
     <div className="cal-cont">
-      {renderNav(loggedIn)}{" "}
+      <Navigation></Navigation>
+      <h1 className="pg-heading" id="appt-heading">
+        Appointments
+      </h1>
       <div className="cal" tabindex="0" role="main">
         <FullCalendar
           plugins={[interactionPlugin, dayGridPlugin, timeGridPlugin]}

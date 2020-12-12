@@ -23,8 +23,8 @@ function SignUp() {
           <div className="container-fluid d-flex justify-content-center">
             <div className="signcard">
               <div className="card-header">
-                <h2 className="sign-heading">Welcome to HomeSweet!</h2>
-                <div>Sign up here.</div>
+                <h1 className="sign-heading">Welcome to HomeSweet!</h1>
+                <div className="subtitle2">Sign up here.</div>
               </div>
               <div className="card-body">
                 <form action="/signup1" method="POST">

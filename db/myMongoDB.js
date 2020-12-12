@@ -70,7 +70,7 @@ function MyDB() {
     const db = client.db("db2");
 
     const events1 = db.collection("events");
-    events1.update(
+    events1.updateOne(
       { username: username },
       {
         $pull: {
@@ -91,6 +91,107 @@ function MyDB() {
     return houses;
   };
 
+  myDB.getSaved = async (username) => {
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+    //database
+    const db = client.db("db2");
+    //collection
+    const saved = db.collection("saved");
+
+    const rtn = await saved.findOne({ username: username });
+    if (rtn === null) {
+      return null;
+    } else {
+      return rtn.savedarr;
+    }
+  };
+
+  myDB.getSavedHearts = async (username) => {
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+
+    const db = client.db("db2");
+
+    const savedHearts = db.collection("savedHearts");
+
+    return savedHearts.findOne({ username: username });
+  };
+
+  myDB.addSavedToDB = async (
+    username,
+    title,
+    price,
+    housinginfo,
+    hood,
+    date,
+    body,
+    address,
+    images
+  ) => {
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+
+    const db = client.db("db2");
+
+    const saved = db.collection("saved");
+    saved.findOne({ username: username }, function (err, user) {
+      if (err) {
+        return next(err);
+      }
+      if (user) {
+        const update = {
+          $push: {
+            savedarr: {
+              title: title,
+              price: price,
+              housinginfo: housinginfo,
+              hood: hood,
+              date: date,
+              body: body,
+              address: address,
+              images: images,
+            },
+          },
+        };
+
+        saved.updateOne({ username: username }, update);
+      } else {
+        saved.insertOne({
+          username: username,
+          savedarr: [
+            {
+              title: title,
+              price: price,
+              housinginfo: housinginfo,
+              hood: hood,
+              date: date,
+              body: body,
+              address: address,
+              images: images,
+            },
+          ],
+        });
+      }
+    });
+  };
+
+  myDB.deleteSavedFromDB = async (username, title) => {
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    await client.connect();
+
+    const db = client.db("db2");
+
+    const saved = db.collection("saved");
+    saved.updateOne(
+      { username: username },
+      {
+        $pull: {
+          savedarr: { title: title },
+        },
+      }
+    );
+  };
   myDB.initializeUsers = async () => {
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     await client.connect();

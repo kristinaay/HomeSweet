@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./home.css";
 import { useState } from "react";
 import { useHistory } from "react-router";
+import Navigation from "../components/navigation.js";
 
 function Home() {
   let textInput = React.createRef();
@@ -19,22 +20,9 @@ function Home() {
 
   return (
     <div>
-      <div
-        className="navbar navbar-expand-lg navbar-light bg-light justify-content-end"
-        role="navigation"
-      >
-        <Link to="/" className="logo-container">
-          <h1 className="logo-header">HOMESWEET</h1>
-        </Link>
-        <Link to="/signin" className="nav-links">
-          Sign In
-        </Link>
-        <Link to="/signup" className="nav-links">
-          Sign Up
-        </Link>
-      </div>
+      <Navigation></Navigation>
       <section id="section1" role="main">
-        <h2 className="discover">Rediscover Home</h2>
+        <h1 className="discover">Rediscover Home</h1>
         <div className="subtitle">Find your perfect San Francisco housing.</div>
         <div className="search-container">
           <div className="search">

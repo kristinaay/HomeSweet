@@ -25,3 +25,14 @@
 .fc .fc-toolbar.fc-header-toolbar {
   margin: 25px;
 }
+
+#appt-heading {
+  width: 100%;
+  background-color: white;
+}
+
+h1 {
+  margin-left: 0 auto;
+  margin-right: 0 auto;
+  text-align: center;
+}

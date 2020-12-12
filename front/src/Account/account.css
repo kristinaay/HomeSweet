@@ -31,7 +31,7 @@
   margin-bottom: 10px;
 }
 #confirmusername {
-  width: 427px;
+  width: 425px;
   margin-right: 0px;
 }
 
@@ -58,4 +58,18 @@
 
 .error {
   margin-left: 10px;
+}
+
+#username-acc {
+  width: 200px;
+}
+
+#newusername-acc {
+  width: 200px;
+}
+#username-acc-2 {
+  width: 200px;
+}
+#newpassword-acc {
+  width: 200px;
 }
