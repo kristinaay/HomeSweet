@@ -1,10 +1,23 @@
-import { ButtonGroup, DropdownButton } from "react-bootstrap";
+import { ButtonGroup, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
+import { useHistory } from "react-router";
 
 export default function Navigation() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const history = useHistory();
+
+  const signOut = async () => {
+    console.log("sign out");
+    await fetch("/signout", {
+      method: "POST",
+      credentials: "include",
+    });
+    history.push({
+      pathname: "/",
+    });
+  };
 
   useEffect(() => {
     const getLoggedIn = async () => {
@@ -48,52 +61,76 @@ export default function Navigation() {
         <Link to="/" className="logo-container">
           <h1 className="logo-header">HOMESWEET</h1>
         </Link>
-        <ButtonGroup className="dropdown-menu-1" title="DropdownButton">
-          <DropdownButton
-            id="dropdown-btn-menu"
-            title=<i
-              className="navbar-toggler-icon"
+        <ButtonGroup
+          className="dropdown-menu-1"
+          title="DropdownButton"
+          aria-label="dropDownMenu"
+        >
+          <Dropdown>
+            <Dropdown.Toggle
+              className="navbar-dark"
+              tabIndex="0"
               haspopup="true"
               expanded="false"
               label="dropdownMenu"
-              aria-label="searchBox"
-            />
-          >
-            <Link to="/housing">
-              <Button key="1" className="menu-btn">
-                All Housing
-              </Button>
-            </Link>
-            <Link to="/appointments">
-              <Button
-                key="2"
+              aria-label="dropDown"
+              id="dropdown-basic"
+              title="menu"
+            >
+              <i className="navbar-toggler-icon" />
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu role="menu">
+              <Dropdown.Item
                 className="menu-btn"
-                aria-label="ButtonToAppointments"
+                tabIndex="0"
+                role="menuitem"
+                as={Link}
+                to="/housing"
+              >
+                All Housing
+              </Dropdown.Item>{" "}
+              <Dropdown.Item
+                className="menu-btn"
+                tabIndex="0"
+                role="menuitem"
+                as={Link}
+                to="/appointments"
               >
                 My Appointments
-              </Button>
-            </Link>
-            <Link to="/saved">
-              <Button key="3" className="menu-btn" aria-label="ButtonToAccount">
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="menu-btn"
+                tabIndex="0"
+                role="menuitem"
+                as={Link}
+                to="/saved"
+              >
                 Saved Posts
-              </Button>
-            </Link>
-            <Link to="/account">
-              <Button key="4" className="menu-btn" aria-label="ButtonToAccount">
+              </Dropdown.Item>{" "}
+              <Dropdown.Item
+                className="menu-btn"
+                tabIndex="0"
+                role="menuitem"
+                as={Link}
+                to="/account"
+              >
                 My Account
-              </Button>
-            </Link>
-            <form
-              className="form"
-              action="/signout"
-              method="post"
-              aria-label="SignOutButton"
-            >
-              <Button key="4" className="menu-btn" type="submit">
+              </Dropdown.Item>{" "}
+              <Dropdown.Item
+                className="menu-btn"
+                tabIndex="0"
+                role="menuitem"
+                as={Button}
+                onClick={() => {
+                  signOut();
+                }}
+                aria-label="SignOutButton"
+              >
                 Sign Out
-              </Button>
-            </form>
-          </DropdownButton>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </ButtonGroup>
       </div>
     );

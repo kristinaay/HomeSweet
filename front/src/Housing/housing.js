@@ -554,6 +554,7 @@ function Housing(props) {
                   className="fa fa-search"
                   aria-hidden="true"
                   aria-label="searchButton"
+                  title="search"
                 ></i>
               </button>
               <ButtonGroup className="dropdown">
