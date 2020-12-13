@@ -323,7 +323,7 @@ function Housing(props) {
   ) => {
     let val = heartSaved[indexPost];
     changeSavedHeart(indexPost, !val);
-    setChanged(!changed);
+
     if (!heartSaved[indexPost]) {
       try {
         await fetch("/savehousing", {
