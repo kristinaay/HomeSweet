@@ -156,11 +156,6 @@ router.post("/getevents", async (req, res) => {
   res.json(events);
 });
 
-router.post("/getsavedhearts", async (req, res) => {
-  const rtn = await myDB.getSavedHearts(req.body.username);
-  return rtn;
-});
-
 router.post("/getsavedposts", async (req, res) => {
   const rtn = await myDB.getSaved(req.body.username);
   res.json(rtn);
@@ -229,7 +224,7 @@ router.post("/senddata2", async (req, res) => {
 
 router.post("/deletedata", async (req, res) => {
   const info = req.body;
-  console.log(req.body);
+
   const data = await myDB.deleteFromDB(
     info.username,
     info.title,
@@ -242,7 +237,7 @@ router.post("/deletedata", async (req, res) => {
 
 router.post("/deletedata2", async (req, res) => {
   const info = req.body;
-  console.log(req.body);
+
   const data = await myDB.deleteFromDB(
     info.username,
     info.title,

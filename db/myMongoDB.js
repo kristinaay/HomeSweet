@@ -4,7 +4,7 @@ const dataFile = require("../routes");
 function MyDB() {
   const myDB = {};
 
-  const uri = process.env.MONGO_URL;
+  const uri = process.env.MONGO_URL || "mongodb://localhost:27017";
   myDB.getPosts = async () => {
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     await client.connect();
@@ -122,17 +122,6 @@ function MyDB() {
     } else {
       return rtn.savedarr;
     }
-  };
-
-  myDB.getSavedHearts = async (username) => {
-    const client = new MongoClient(uri, { useUnifiedTopology: true });
-    await client.connect();
-
-    const db = client.db("db2");
-
-    const savedHearts = db.collection("savedHearts");
-
-    return savedHearts.findOne({ username: username });
   };
 
   myDB.addSavedToDB = async (

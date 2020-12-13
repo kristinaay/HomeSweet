@@ -207,7 +207,7 @@ function Appts() {
 
               let calendar = selectInfo.view.calendar;
 
-              if (title !== null && title != "") {
+              if (title !== null && title !== "") {
                 calendar.addEvent({
                   title: title,
                   start: selectInfo.startStr,

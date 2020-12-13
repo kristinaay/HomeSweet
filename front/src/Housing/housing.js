@@ -24,11 +24,55 @@ function Housing(props) {
   const location = useLocation();
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUser] = useState("");
+  const [heartSolid, setHeartSolid] = useState([]);
+
   const urlParams = new URLSearchParams(window.location.search);
+
   const user = urlParams.get("username");
   if (user !== null && user !== undefined && user !== "") {
     localStorage.setItem("username", user);
   }
+
+  useEffect(() => {
+    const getSolid = async () => {
+      const _posts = await fetch("/getsavedposts", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+        }),
+      }).then((res) => res.json());
+
+      let p = _posts ? _posts : [{ title: "temp" }];
+      let arr = [];
+      for (let i = 0; i < p.length; i++) {
+        arr.push(p[i].title);
+      }
+      setHeartSolid(arr);
+    };
+    getSolid();
+  }, [username]);
+
+  useEffect(() => {
+    const ifHeartFilled = async () => {
+      const arr = [];
+      for (let i = 0; i < 3010; i++) {
+        arr.push(false);
+      }
+      for (let i = 0; i < heartSolid.length; i++) {
+        if (p[3] === heartSolid[i]) {
+          console.log("match", p[3]);
+
+          arr[indexPost] = true;
+          setHeartSaved(arr);
+        }
+      }
+    };
+    ifHeartFilled();
+  }, [p, heartSolid, indexPost]);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("username");
@@ -45,7 +89,6 @@ function Housing(props) {
           credentials: "include",
         }).then((res) => res.json());
         setLoggedIn(_loggedin);
-        console.log("logged in: ", _loggedin);
       } catch (err) {
         console.log("error");
       }
@@ -61,7 +104,6 @@ function Housing(props) {
           credentials: "include",
         }).then((res) => res.json());
         setLoggedIn(_loggedin);
-        console.log("logged in: ", _loggedin);
       } catch (err) {
         console.log("error");
       }
@@ -218,7 +260,7 @@ function Housing(props) {
 
   const clickedInfo = (p, index) => {
     setIndex(index);
-    console.log(index);
+
     setP(Object.values(p));
     setShowModal(true);
   };
@@ -282,7 +324,6 @@ function Housing(props) {
     changeSavedHeart(indexPost, !val);
     if (!heartSaved[indexPost]) {
       try {
-        console.log("Add", username);
         await fetch("/savehousing", {
           method: "POST",
           headers: {
@@ -305,7 +346,6 @@ function Housing(props) {
         console.log("error", err);
       }
     } else {
-      console.log("Delete");
       try {
         await fetch("/deletehousing", {
           method: "POST",
