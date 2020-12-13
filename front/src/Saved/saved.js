@@ -298,6 +298,13 @@ function Saved() {
             <div className="modal-body">
               <div className="modal-img"></div>
               <div>
+                <b>Your Notes: </b>
+                {p[8]
+                  ? p[8]
+                  : " None yet. Click the pen icon in the top right corner to annotate this post!"}
+              </div>{" "}
+              <br />
+              <div>
                 <b>Price:</b> {p[1]}
               </div>
               <div>
@@ -318,13 +325,6 @@ function Saved() {
                   .replaceAll("&amp;", "and")
                   .replace(/<[^>]*>?/gm, "")
                   .replace("QR Code Link to This Post", "")}
-              </div>
-              <br />
-              <div>
-                <b>Your Notes: </b>
-                {p[8]
-                  ? p[8]
-                  : " None yet. Click the pen icon in the top right corner to annotate this post!"}
               </div>
             </div>
 

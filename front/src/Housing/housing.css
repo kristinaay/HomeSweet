@@ -14,7 +14,10 @@ body {
   display: inline-block;
   width: 100%;
   margin-top: 0;
-  font-family: "Archivo Black", sans-serif;
+  font-family: "Old Standard TT", serif;
+  text-transform: uppercase;
+  margin-bottom: 0px;
+  height: 80px;
 }
 
 .modal-body {
@@ -58,7 +61,7 @@ Modal {
 }
 
 #dropdown-basic {
-  background-color: #4a5e2c;
+  background-color: #5f7364;
 }
 
 #dropdown-basic:focus {
@@ -206,8 +209,7 @@ footer {
 
 .click:hover {
   border: 1px;
-  background: rgb(143, 169, 149);
-  background: rgba(143, 169, 149, 0.85);
+  background: #5f7364;
   min-width: 325px;
   border-style: solid;
   border-color: white;
@@ -243,7 +245,7 @@ footer {
   height: 325px;
   min-width: 325px;
   overflow: hidden;
-  background: rgb(143, 169, 149);
+  background-color: #5f7364;
   color: white;
   font-size: 25px;
   font-family: "Bebas Neue", cursive;
@@ -275,10 +277,10 @@ footer {
   padding-left: 15px;
   min-width: 325px;
   background: rgb(255, 255, 255);
-  background: rgba(255, 255, 255, 0.85);
   padding-right: 15px;
   height: 100px;
-  font-family: "Archivo Black", sans-serif;
+  font-family: "Old Standard TT", serif;
+  text-transform: uppercase;
 }
 
 .whole-card {
@@ -368,6 +370,10 @@ footer {
 #search-2 {
   width: 72%;
   float: center;
+}
+
+.searchForSR {
+  font-size: 0px;
 }
 
 .filter-btn:focus {

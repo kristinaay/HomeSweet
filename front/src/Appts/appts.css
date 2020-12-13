@@ -18,12 +18,13 @@
 }
 
 .fc .fc-toolbar-title {
-  font-size: 1.75em;
   margin-left: 25px;
+  font-family: "Old Standard TT", serif;
 }
 
 .fc .fc-toolbar.fc-header-toolbar {
   margin: 25px;
+  font-family: "Old Standard TT", serif;
 }
 
 #appt-heading {
@@ -56,14 +57,22 @@ h1 {
 .form-group-appt-2 {
   margin-left: 5px;
   margin-right: 5px;
-  width: 100px;
+  width: 125px;
 }
 
 .add-event-btn {
-  width: 100px;
+  width: 125px;
   margin-top: 35px;
+  background-color: #5f7364;
+  color: white;
 }
 
+.add-event-btn:hover {
+  width: 125px;
+  margin-top: 35px;
+  background-color: #48574c;
+  color: white;
+}
 .create-appt {
   background-color: white;
   margin-bottom: 10px;

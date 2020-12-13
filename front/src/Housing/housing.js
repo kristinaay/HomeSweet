@@ -333,7 +333,7 @@ function Housing(props) {
 
     return (
       <div>
-        <Modal isOpen={showModal}>
+        <Modal isOpen={showModal} aria-label="Modal">
           <div className="modal-header">
             <div className="buttons-post">
               {loggedIn && (
@@ -353,6 +353,7 @@ function Housing(props) {
                     )
                   }
                   className="heart"
+                  aria-label="savePostButton"
                   tab-index="0"
                 >
                   <img
@@ -361,7 +362,12 @@ function Housing(props) {
                   />
                 </button>
               )}
-              <button onClick={closeModal} className="close-btn" tab-index="0">
+              <button
+                onClick={closeModal}
+                aria-label="closeButton"
+                className="close-btn"
+                tab-index="0"
+              >
                 X
               </button>
             </div>
@@ -556,6 +562,7 @@ function Housing(props) {
                   aria-label="searchButton"
                   title="search"
                 ></i>
+                <p className="searchForSR">Search </p>
               </button>
               <ButtonGroup className="dropdown">
                 <DropdownButton title="Sort By:" id="dropdown-btn">

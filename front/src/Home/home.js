@@ -41,6 +41,7 @@ function Home() {
               onClick={handleClick}
             >
               <i className="fa fa-search" aria-hidden="true"></i>
+              <p className="searchForSR">Search </p>
             </button>
           </div>
         </div>
