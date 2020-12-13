@@ -98,43 +98,6 @@ function Housing(props) {
   }, []);
 
   useEffect(() => {
-    const saveHeartsinDB = async () => {
-      try {
-        const _loggedin = await fetch("/getlog", {
-          method: "GET",
-          credentials: "include",
-        }).then((res) => res.json());
-        setLoggedIn(_loggedin);
-      } catch (err) {
-        console.log("error");
-      }
-    };
-    saveHeartsinDB();
-  }, [heartSaved]);
-
-  useEffect(() => {
-    const dbSavedHearts = async () => {
-      const saved = await fetch("/getsavedhearts", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-        }),
-      });
-      const arr = [];
-      for (let i = 0; i < 3010; i++) {
-        arr.push(false);
-      }
-      const newArr = saved ? saved.heartsarr : arr;
-      setHeartSaved(newArr);
-    };
-    dbSavedHearts();
-  }, [username]);
-
-  useEffect(() => {
     const fillImgString = () => {
       try {
         const arr = [];
@@ -266,6 +229,7 @@ function Housing(props) {
     setShowModal(true);
   };
   const closeModal = () => {
+    setChanged(!changed);
     setShowModal(false);
   };
 
@@ -559,7 +523,7 @@ function Housing(props) {
         a["result-price"].replace("$", "").replace(",", "") -
         b["result-price"].replace("$", "").replace(",", "")
     );
-    setChanged(!changed);
+
     setPosts(sorted);
   };
 
@@ -569,12 +533,11 @@ function Housing(props) {
         b["result-price"].replace("$", "").replace(",", "") -
         a["result-price"].replace("$", "").replace(",", "")
     );
-    setChanged(!changed);
+
     setPosts(sorted);
   };
 
   const filterOrig = () => {
-    setChanged(!changed);
     setPosts(origPosts);
   };
 
