@@ -25,6 +25,7 @@ function Housing(props) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUser] = useState("");
   const [heartSolid, setHeartSolid] = useState([]);
+  const [changed, setChanged] = useState(false);
 
   const urlParams = new URLSearchParams(window.location.search);
 
@@ -54,7 +55,7 @@ function Housing(props) {
       setHeartSolid(arr);
     };
     getSolid();
-  }, [username]);
+  }, [username, changed]);
 
   useEffect(() => {
     const ifHeartFilled = async () => {
@@ -72,7 +73,7 @@ function Housing(props) {
       }
     };
     ifHeartFilled();
-  }, [p, heartSolid, indexPost]);
+  }, [p, heartSolid, indexPost, changed]);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("username");
@@ -322,6 +323,7 @@ function Housing(props) {
   ) => {
     let val = heartSaved[indexPost];
     changeSavedHeart(indexPost, !val);
+    setChanged(!changed);
     if (!heartSaved[indexPost]) {
       try {
         await fetch("/savehousing", {
@@ -557,7 +559,7 @@ function Housing(props) {
         a["result-price"].replace("$", "").replace(",", "") -
         b["result-price"].replace("$", "").replace(",", "")
     );
-
+    setChanged(!changed);
     setPosts(sorted);
   };
 
@@ -567,11 +569,12 @@ function Housing(props) {
         b["result-price"].replace("$", "").replace(",", "") -
         a["result-price"].replace("$", "").replace(",", "")
     );
-
+    setChanged(!changed);
     setPosts(sorted);
   };
 
   const filterOrig = () => {
+    setChanged(!changed);
     setPosts(origPosts);
   };
 
