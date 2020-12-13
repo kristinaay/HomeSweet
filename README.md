@@ -1,5 +1,5 @@
 # HomeSweet
-# Authors: 
+# Author: 
 Kristina Yin
 # See the website at: 
 https://homesweet-housing.herokuapp.com/account
