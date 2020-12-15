@@ -242,7 +242,7 @@ function Saved() {
   const renderSavedPosts = (posts, loading) => {
     if (loading) {
       return <h2>Loading...</h2>;
-    } else if (`${posts}`.length >= 1) {
+    } else {
       return (
         <div>
           <Modal isOpen={showModal}>
@@ -383,12 +383,6 @@ function Saved() {
             </Row>
           </Container>
         </div>
-      );
-    } else {
-      return (
-        <h2>
-          No posts saved yet! Browse "All Housing" to find your favorites.
-        </h2>
       );
     }
   };
