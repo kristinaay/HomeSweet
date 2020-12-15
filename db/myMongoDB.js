@@ -26,7 +26,7 @@ function MyDB() {
     const events1 = db.collection("events");
 
     const eventsposts = await events1.findOne({ username: username });
-    console.log("try", eventsposts);
+
     return eventsposts;
   };
 

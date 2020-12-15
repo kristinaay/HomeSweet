@@ -71,6 +71,7 @@ function Saved() {
       }).then((res) => res.json());
 
       let p = _posts ? _posts : null;
+
       setPosts(p);
       setLoading(false);
     };
@@ -241,7 +242,7 @@ function Saved() {
   const renderSavedPosts = (posts, loading) => {
     if (loading) {
       return <h2>Loading...</h2>;
-    } else if (`${posts}` === null || `${posts}` === "") {
+    } else if (`${posts}`.length === 0) {
       return (
         <h2>
           No posts saved yet! Browse "All Housing" to find your favorites.
