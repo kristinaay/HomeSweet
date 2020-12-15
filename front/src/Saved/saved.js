@@ -70,9 +70,7 @@ function Saved() {
         }),
       }).then((res) => res.json());
 
-      let p = _posts ? _posts : null;
-
-      setPosts(p);
+      setPosts(_posts);
       setLoading(false);
     };
     getSavedPosts();
