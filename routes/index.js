@@ -198,6 +198,10 @@ router.post("/updatehousing", async (req, res) => {
   );
   return res.json();
 });
+
+// In my opinion, it is not a good practice to name the route like this. After viewing the code i understand that it might me two different version of adding data,
+// But if will increase the difficulities for other, or even for youself, say after half year and you see this, you might also confused about what they do.
+// say we can name it /senddataallday or something
 router.post("/senddata", async (req, res) => {
   const info = req.body;
   const data = await myDB.addToDB(
