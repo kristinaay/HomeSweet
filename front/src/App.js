@@ -28,3 +28,10 @@ function App() {
 }
 
 export default App;
+
+
+// Overall review of the react frontend:
+// Hi Kristina, you website looks perfect! The background and color are selected harmonized and the overall design is very clear. All components are 
+// working together in a good manner! Here I only got few suggestions about backend part as noted in other pull request. And If there is no saved posts, 
+// A reminding indicationg user has no saved post will be better. And for the My Appointment page, it will be better to have more spacing between forms and more 
+// margins to the screen. And Remember to change the website title as it is right now React App lol
