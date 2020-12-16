@@ -11,6 +11,8 @@ const usersRouter = require("./routes/users");
 const Passport = require("passport");
 const Session = require("express-session");
 
+
+// Here it would be better if we put secret as env varaible like what we did for database credentials.
 app.use(
   Session({
     secret: "session secret",
